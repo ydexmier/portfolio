@@ -12,9 +12,9 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       aria-label={isDark ? "Activer le thème clair" : "Activer le thème sombre"}
       aria-pressed={isDark}
-      className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-surface"
+      className="font-mono text-xs text-muted transition-colors hover:text-accent"
     >
-      <span aria-hidden="true">{isDark ? "☀️" : "🌙"}</span>
+      {isDark ? "☀ clair" : "● sombre"}
     </button>
   );
 }

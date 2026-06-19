@@ -10,14 +10,14 @@ export function Projects() {
       <Container>
         <Reveal>
           <SectionHeading
-            eyebrow="Projets"
-            title="Études de cas"
+            number="03"
+            title="Projets"
             description="Contexte → Problème → Solution → Stack → Résultat."
           />
         </Reveal>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div>
           {projects.map((project, index) => (
-            <Reveal key={project.slug} delay={index * 0.06}>
+            <Reveal key={project.slug} delay={index * 0.05}>
               <ProjectCard project={project} />
             </Reveal>
           ))}

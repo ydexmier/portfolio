@@ -4,7 +4,6 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/metadata";
 import { projects, getProjectBySlug } from "@/content/projects";
 import { Container } from "@/components/ui/container";
-import { Badge } from "@/components/ui/badge";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -36,48 +35,40 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <article className="py-20 sm:py-28">
-      <Container className="max-w-3xl">
-        <Link href="/projects" className="text-sm text-muted hover:text-foreground">
+      <Container>
+        <Link href="/projects" className="font-mono text-xs text-muted hover:text-accent">
           ← Tous les projets
         </Link>
 
-        <div className="mt-6 flex items-start gap-4">
-          <span className="text-4xl" aria-hidden="true">
-            {project.emoji}
-          </span>
-          <div>
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{project.title}</h1>
-            <p className="mt-1 text-muted">
-              {project.company} · {project.period}
-            </p>
-          </div>
+        <div className="mt-6">
+          <span className="font-mono text-xs text-muted">{project.period}</span>
+          <h1 className="font-serif-display mt-2 text-3xl font-medium tracking-tight sm:text-4xl">
+            {project.emoji} {project.title}
+          </h1>
+          <p className="mt-2 text-muted">{project.company}</p>
         </div>
 
-        <div className="mt-10 space-y-8">
+        <div className="mt-10 space-y-8 divide-y divide-border">
           <section>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-accent">Contexte</h2>
+            <h2 className="font-mono text-xs uppercase tracking-wider text-accent">Contexte</h2>
             <p className="mt-2 leading-relaxed">{project.context}</p>
           </section>
-          <section>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-accent">Problème</h2>
+          <section className="pt-8">
+            <h2 className="font-mono text-xs uppercase tracking-wider text-accent">Problème</h2>
             <p className="mt-2 leading-relaxed">{project.challenge}</p>
           </section>
-          <section>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-accent">
+          <section className="pt-8">
+            <h2 className="font-mono text-xs uppercase tracking-wider text-accent">
               Solution / Rôle
             </h2>
             <p className="mt-2 leading-relaxed">{project.role}</p>
           </section>
-          <section>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-accent">Stack</h2>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {project.stack.map((tech) => (
-                <Badge key={tech}>{tech}</Badge>
-              ))}
-            </div>
+          <section className="pt-8">
+            <h2 className="font-mono text-xs uppercase tracking-wider text-accent">Stack</h2>
+            <p className="mt-2 text-sm text-muted">{project.stack.join(" / ")}</p>
           </section>
-          <section>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-accent">Résultat</h2>
+          <section className="pt-8">
+            <h2 className="font-mono text-xs uppercase tracking-wider text-accent">Résultat</h2>
             <p className="mt-2 leading-relaxed">{project.impact}</p>
           </section>
         </div>

@@ -1,12 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { MobileNav } from "@/components/layout/mobile-nav";
+import { MobileTopbar } from "@/components/layout/mobile-topbar";
+import { ThemeProvider } from "@/components/layout/theme-provider";
 
-describe("MobileNav", () => {
-  it("is closed by default and opens on click with correct aria state", async () => {
+describe("MobileTopbar", () => {
+  it("is closed by default and opens the nav on click", async () => {
     const user = userEvent.setup();
-    render(<MobileNav />);
+    render(
+      <ThemeProvider>
+        <MobileTopbar />
+      </ThemeProvider>,
+    );
 
     const toggle = screen.getByRole("button", { name: "Ouvrir le menu" });
     expect(toggle).toHaveAttribute("aria-expanded", "false");

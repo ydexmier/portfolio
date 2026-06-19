@@ -16,11 +16,11 @@ export default function ProjectsPage() {
     <section className="py-20 sm:py-28">
       <Container>
         <SectionHeading
-          eyebrow="Projets"
+          number="03"
           title="Études de cas"
           description="Contexte → Problème → Solution → Stack → Résultat."
         />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div>
           {projects.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}

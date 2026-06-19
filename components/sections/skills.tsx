@@ -9,25 +9,23 @@ export function Skills() {
       <Container>
         <Reveal>
           <SectionHeading
-            eyebrow="Compétences"
-            title="Ce que je maîtrise"
+            number="02"
+            title="Compétences"
             description="Du développement frontend au workflow assisté par IA."
           />
         </Reveal>
-        <div className="grid gap-6 sm:grid-cols-2">
+        <dl className="divide-y divide-border border-y border-border">
           {skillCategories.map((category, index) => (
-            <Reveal key={category.title} delay={index * 0.08}>
-              <div className="h-full rounded-2xl border border-border bg-surface p-6">
-                <h3 className="font-semibold">{category.title}</h3>
-                <ul className="mt-4 space-y-2 text-sm text-muted">
-                  {category.skills.map((skill) => (
-                    <li key={skill}>{skill}</li>
-                  ))}
-                </ul>
+            <Reveal key={category.title} delay={index * 0.06}>
+              <div className="grid gap-2 py-6 sm:grid-cols-[1fr_2fr] sm:gap-8">
+                <dt className="font-mono text-xs uppercase tracking-wider text-muted">
+                  {category.title}
+                </dt>
+                <dd className="text-sm leading-relaxed">{category.skills.join(" / ")}</dd>
               </div>
             </Reveal>
           ))}
-        </div>
+        </dl>
       </Container>
     </section>
   );

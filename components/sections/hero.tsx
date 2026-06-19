@@ -11,60 +11,56 @@ export function Hero() {
   const container = {
     hidden: {},
     show: {
-      transition: { staggerChildren: shouldReduceMotion ? 0 : 0.12 },
+      transition: { staggerChildren: shouldReduceMotion ? 0 : 0.1 },
     },
   };
 
   const item = {
-    hidden: shouldReduceMotion ? {} : { opacity: 0, y: 16 },
+    hidden: shouldReduceMotion ? {} : { opacity: 0, y: 14 },
     show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
   };
 
-  return (
-    <section className="pt-20 pb-24 sm:pt-28 sm:pb-32">
-      <Container>
-        <motion.div
-          initial="hidden"
-          animate="show"
-          variants={container}
-          className="flex flex-col items-start gap-6"
-        >
-          <motion.span
-            variants={item}
-            className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-lg font-semibold text-accent-foreground"
-            aria-hidden="true"
-          >
-            {profile.initials}
-          </motion.span>
+  const facts = [
+    { label: "Rôle", value: profile.subtitle },
+    { label: "Expérience", value: `${profile.experienceYears} ans` },
+    { label: "Lieu", value: profile.location },
+    { label: "Dispo", value: profile.availability },
+  ];
 
-          <motion.p
-            variants={item}
-            className="text-sm font-medium uppercase tracking-wider text-accent"
-          >
-            {profile.subtitle} · {profile.experienceYears} ans d&apos;expérience
+  return (
+    <section className="pt-16 pb-24 sm:pt-24 sm:pb-32">
+      <Container>
+        <motion.div initial="hidden" animate="show" variants={container}>
+          <motion.p variants={item} className="font-mono text-xs uppercase tracking-wider text-accent">
+            Bonjour, je suis {profile.name}
           </motion.p>
 
           <motion.h1
             variants={item}
-            className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl"
+            className="font-serif-display mt-6 max-w-2xl text-3xl font-medium leading-[1.15] tracking-tight sm:text-4xl"
           >
             {profile.heroTagline}
           </motion.h1>
 
-          <motion.p variants={item} className="max-w-2xl text-lg text-muted">
+          <motion.p variants={item} className="mt-6 max-w-xl text-base leading-relaxed text-muted">
             {profile.heroDescription}
           </motion.p>
 
-          <motion.div variants={item} className="flex flex-wrap gap-4 pt-2">
-            <Button href="/projects">Voir mes projets</Button>
+          <motion.dl variants={item} className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
+            {facts.map((fact) => (
+              <div key={fact.label}>
+                <dt className="font-mono text-xs uppercase text-muted">{fact.label}</dt>
+                <dd className="mt-1 text-sm">{fact.value}</dd>
+              </div>
+            ))}
+          </motion.dl>
+
+          <motion.div variants={item} className="mt-10 flex flex-wrap gap-4">
+            <Button href="/projects">Voir mes projets →</Button>
             <Button href="/contact" variant="secondary">
               Me contacter
             </Button>
           </motion.div>
-
-          <motion.p variants={item} className="text-sm text-muted">
-            {profile.location} · {profile.availability}
-          </motion.p>
         </motion.div>
       </Container>
     </section>

@@ -1,17 +1,20 @@
 export function SectionHeading({
-  eyebrow,
+  number,
   title,
   description,
 }: {
-  eyebrow: string;
+  number: string;
   title: string;
   description?: string;
 }) {
   return (
-    <div className="mb-10 max-w-2xl">
-      <p className="text-sm font-medium uppercase tracking-wider text-accent">{eyebrow}</p>
-      <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h2>
-      {description ? <p className="mt-4 text-muted">{description}</p> : null}
+    <div className="mb-12">
+      <div className="flex items-baseline gap-4">
+        <span className="font-mono text-sm text-accent">{number}</span>
+        <h2 className="font-serif-display text-3xl font-medium tracking-tight">{title}</h2>
+        <span className="hidden h-px flex-1 bg-border sm:block" aria-hidden="true" />
+      </div>
+      {description ? <p className="mt-4 max-w-lg text-sm text-muted">{description}</p> : null}
     </div>
   );
 }

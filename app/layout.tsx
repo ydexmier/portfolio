@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { buildMetadata, siteConfig } from "@/lib/metadata";
 import { profile } from "@/content/profile";
 import { ThemeProvider, themeInitScript } from "@/components/layout/theme-provider";
-import { Header } from "@/components/layout/header";
+import { Sidebar } from "@/components/layout/sidebar";
+import { MobileTopbar } from "@/components/layout/mobile-topbar";
 import { Footer } from "@/components/layout/footer";
 
 const geistSans = Geist({
@@ -17,6 +18,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  axes: ["opsz", "SOFT", "WONK"],
 });
 
 export const metadata: Metadata = {
@@ -52,17 +59,23 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} antialiased`}
+      >
         <ThemeProvider>
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-foreground"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-foreground"
           >
             Aller au contenu principal
           </a>
-          <Header />
-          <main id="main-content">{children}</main>
-          <Footer />
+          <div className="grain-overlay" aria-hidden="true" />
+          <Sidebar />
+          <MobileTopbar />
+          <div className="lg:ml-[340px]">
+            <main id="main-content">{children}</main>
+            <Footer />
+          </div>
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />
