@@ -31,7 +31,10 @@ export function Hero() {
     <section className="pt-16 pb-24 sm:pt-24 sm:pb-32">
       <Container>
         <motion.div initial="hidden" animate="show" variants={container}>
-          <motion.p variants={item} className="font-mono text-xs uppercase tracking-wider text-accent">
+          <motion.p
+            variants={item}
+            className="font-mono text-xs uppercase tracking-wider text-accent"
+          >
             Bonjour, je suis {profile.name}
           </motion.p>
 

@@ -78,7 +78,7 @@ Lecture • Cinéma • Tennis de Table • Jeux de sociétés
 
 - **Vercel Analytics** + **Vercel Speed Insights**
 - **next/image** pour optimisation automatique des images
-- **next/font** avec Geist (font Vercel) ou Inter
+- **next/font** : Geist Sans (corps), Geist Mono (accents/dates/tags), Fraunces (titres sérif)
 - Sitemap auto + robots.txt + JSON-LD schema
 - **Lighthouse score cible : 95+** sur toutes les métriques
 - Accessibilité **WCAG AA** obligatoire (c'est une compétence clé à démontrer)
@@ -100,44 +100,42 @@ Lecture • Cinéma • Tennis de Table • Jeux de sociétés
 ```
 portfolio/
 ├── app/                        # Next.js App Router
-│   ├── layout.tsx              # Layout global (fonts, metadata, analytics)
-│   ├── page.tsx                # Homepage (one-page ou redirection)
-│   ├── globals.css             # Variables CSS + reset Tailwind
+│   ├── layout.tsx              # Layout global : fonts, metadata, JSON-LD, Sidebar + MobileTopbar + Footer
+│   ├── page.tsx                # Homepage one-page (Hero, About, Skills, Projects, Experience, Contact)
+│   ├── globals.css             # Tokens couleur (light/dark), @custom-variant dark, grain-overlay
+│   ├── actions/
+│   │   └── contact.ts          # Server action (Resend) du formulaire de contact
 │   ├── projects/
-│   │   ├── page.tsx            # Liste des projets
+│   │   ├── page.tsx            # Liste des projets (mêmes rows que la section homepage)
 │   │   └── [slug]/
-│   │       └── page.tsx        # Case study détaillé
-│   └── contact/
-│       └── page.tsx            # Page contact
+│   │       └── page.tsx        # Case study détaillé (generateStaticParams)
+│   ├── contact/
+│   │   └── page.tsx            # Page contact dédiée (réutilise <Contact />)
+│   ├── sitemap.ts
+│   └── robots.ts
 ├── components/
-│   ├── ui/                     # Composants atomiques (Button, Badge, Card...)
-│   ├── sections/               # Sections de la homepage
-│   │   ├── Hero.tsx
-│   │   ├── About.tsx
-│   │   ├── Skills.tsx
-│   │   ├── Projects.tsx
-│   │   ├── Experience.tsx
-│   │   └── Contact.tsx
+│   ├── ui/                     # Button, Badge (tag mono), Container, SectionHeading, ProjectCard, Reveal
+│   ├── sections/                # Hero, About, Skills, Projects, Experience, Contact, ContactForm
 │   └── layout/
-│       ├── Header.tsx
-│       └── Footer.tsx
+│       ├── sidebar.tsx          # Sidebar fixe desktop : identité, nav numérotée + scrollspy, socials
+│       ├── mobile-topbar.tsx    # Topbar + menu plein écran sur mobile (lg:hidden)
+│       ├── theme-provider.tsx   # Contexte dark/light + script anti-flash injecté en <head>
+│       ├── theme-toggle.tsx
+│       └── footer.tsx           # Simple ligne de crédit mono
 ├── content/
-│   └── projects/               # Données des projets (MDX ou JSON)
-│       ├── psa-configurateur.mdx
-│       ├── la-ruche.mdx
-│       ├── questel.mdx
-│       └── yoomap.mdx
+│   ├── profile.ts              # Identité, accroche, à propos, formations, soft skills
+│   ├── skills.ts                # Catégories de compétences
+│   ├── projects.ts              # Études de cas (Contexte/Problème/Solution/Stack/Résultat)
+│   └── experience.ts            # Timeline (liée aux projets par slug)
 ├── lib/
-│   ├── utils.ts                # Helpers
-│   └── metadata.ts             # Metadata helpers SEO
+│   ├── utils.ts                 # cn() (clsx + tailwind-merge)
+│   ├── metadata.ts               # buildMetadata() + siteConfig (SEO)
+│   └── nav.ts                    # Source unique des items de nav (id, numéro, label, href)
 ├── public/
-│   ├── images/
-│   │   ├── projects/           # Screenshots projets
-│   │   └── profile.jpg         # Photo pro
-│   └── cv-yoann-dexmier.pdf    # CV téléchargeable
-├── CLAUDE.md                   # Ce fichier
+│   └── cv-yoann-dexmier.pdf      # CV téléchargeable (à fournir, absent du repo)
+├── CLAUDE.md                     # Ce fichier
+├── vitest.config.ts / vitest.setup.ts
 ├── next.config.ts
-├── tailwind.config.ts
 ├── tsconfig.json
 └── package.json
 ```
@@ -148,11 +146,11 @@ portfolio/
 
 ### 1. Hero
 
-- Titre animé : "Développeur Frontend Senior"
-- Accroche (voir ci-dessus)
-- CTA : "Voir mes projets" + "Me contacter"
-- Animation d'entrée fluide (Motion)
-- Photo ou avatar minimaliste
+- Label mono : "Bonjour, je suis Yoann Dexmier"
+- Titre sérif (Fraunces) : l'accroche (voir ci-dessus)
+- Grille de faits mono (dt/dd) : Rôle · Expérience · Lieu · Dispo — pas d'avatar/photo
+- CTA : "Voir mes projets →" (bouton bordé) + "Me contacter" (lien texte)
+- Animation d'entrée en stagger (Motion), respecte `useReducedMotion`
 
 ### 2. À propos
 
@@ -160,9 +158,10 @@ portfolio/
 
 > Ce qui me motive depuis 10 ans ? Construire des interfaces que les gens utilisent vraiment — et qui durent. Développeur Frontend Senior spécialisé React/TypeScript, je fais le lien entre enjeux métier et expérience utilisateur. Rigoureux, organisé, naturellement tourné vers la collaboration. Aujourd'hui, j'intègre l'IA dans mon workflow pour aller encore plus loin.
 
-- Valeurs à faire ressortir visuellement : Qualité • Accessibilité • Durabilité • Collaboration
-- Lien téléchargement CV (PDF)
-- Liens réseaux sociaux
+- Valeurs affichées en texte mono inline (pas de badges/pills) : Qualité / Accessibilité / Durabilité / Collaboration
+- Lien téléchargement CV (PDF) en bouton bordé
+- Formations + centres d'intérêt en liste typographique simple (pas de card)
+- Réseaux sociaux portés par la Sidebar, pas dupliqués dans la section
 
 ### 3. Compétences
 
@@ -266,11 +265,15 @@ Affichage chronologique inversé :
 
 ### Direction artistique
 
-- Palette sobre et professionnelle : fond sombre (`#0a0a0a`) ou blanc cassé (`#fafafa`)
-- Accent couleur unique (ex: vert menthe `#4ade80`, ou bleu nuit `#3b82f6`)
-- Typographie lisible et moderne : **Geist** (Vercel) ou **Inter**
-- Espacements généreux, hiérarchie claire
-- Minimalisme assumé — le contenu prime sur la décoration
+> Inspirée des portfolios dev de référence (ex. brittanychiang.com) plutôt que des templates SaaS génériques : sidebar fixe avec identité + nav numérotée, typographie sérif + mono pour la personnalité, palette éditoriale plutôt que vert/bleu par défaut, listes typographiques plutôt que grilles de cards à ombre.
+
+- **Layout** : sidebar fixe à gauche en desktop (`components/layout/sidebar.tsx`, largeur `340px`) portant identité, nav numérotée (01–05) avec scrollspy via `IntersectionObserver`, réseaux sociaux et toggle de thème. Le contenu principal est décalé (`lg:ml-[340px]`). Sur mobile, topbar sticky + menu plein écran (`mobile-topbar.tsx`).
+- **Palette** : papier chaud clair (`--background: #f6f2ec`, `--foreground: #1c1a17`) / encre chaude en dark (`--background: #15130f`, `--foreground: #f3ede4`), accent **terracotta** unique (`--accent: #ab4a26` clair, `#e08a5b` sombre). Variables définies dans `app/globals.css`, dark mode piloté par classe (`@custom-variant dark`), pas de media query seule.
+- **Typographie** : **Fraunces** (sérif, `font-serif-display`) pour les titres, **Geist Mono** pour les accents/numéros de section/dates/tags/labels, **Geist Sans** pour le corps de texte. Ce triptyque sérif + mono + sans est ce qui donne sa personnalité au site — ne pas revenir à "tout en Inter/Geist Sans".
+- **Pas de pilules ni de cards à ombre** : `Button` est rectangulaire bordé (jamais `rounded-full`), `Badge`/tags sont du texte mono inline séparé par `/`, les listes (compétences, projets, expérience) sont des rows séparées par `border-border`, pas des grilles de cards avec `shadow`/`hover:scale`.
+- **Numérotation des sections** : chaque `<SectionHeading number="0X" title="..." />` affiche le numéro en mono accent + un filet horizontal — cohérent avec la nav numérotée de la sidebar.
+- **Texture** : léger overlay de grain SVG (`.grain-overlay` dans `globals.css`, `mix-blend-mode: overlay`, opacité ~0.05) pour casser l'aspect "flat vector" générique.
+- Espacements généreux, hiérarchie claire, minimalisme assumé — le contenu prime sur la décoration
 
 ### Principes UX à respecter (= démontrer son expertise)
 
@@ -286,11 +289,16 @@ Affichage chronologique inversé :
 
 ### Animations recommandées
 
-- Hero : entrée en fondu + décalage vertical (stagger)
-- Sections : révélation au scroll (IntersectionObserver via Motion)
-- Projets : hover card avec scale subtil
-- Timeline : apparition séquentielle des items
+- Hero : entrée en fondu + décalage vertical (stagger), via `motion/react`
+- Sections : révélation au scroll avec le composant `<Reveal>` (`whileInView`, `viewport={{ once: true }}`)
+- Sidebar : scrollspy `IntersectionObserver` qui met en évidence la section active dans la nav
+- Projets/Expérience : pas de hover scale/shadow — simple changement de couleur du texte et `hover:bg-surface` sur les rows
 - Pas d'animation gratuite — chaque mouvement a un sens
+- Toujours vérifier avec `useReducedMotion` (Motion) avant d'animer
+
+### Piège connu : `backdrop-filter` et `position: fixed`
+
+`filter`/`backdrop-filter` sur un ancêtre crée un nouveau containing block pour les descendants `position: fixed` (même règle que `transform`). Un `<nav>` fixed avec `top`/`bottom` imbriqué dans un parent `backdrop-blur` ne s'étire plus au viewport mais au parent (souvent `height: auto` → contenu tronqué). Toujours sortir les overlays plein écran (menu mobile, modales) du conteneur flouté/transformé, ou les rendre en sibling au même niveau.
 
 ---
 
@@ -390,6 +398,8 @@ pnpm type-check
 - Respecter `prefers-reduced-motion` sur toutes les animations
 - Attributs `aria-*` sur tous les éléments interactifs
 - Textes alternatifs sur toutes les images
+- Garder la cohérence visuelle : titres en `font-serif-display` (Fraunces), numéros/dates/tags en `font-mono`, accent unique `text-accent`/`border-accent`
+- Numéroter toute nouvelle section homepage (`SectionHeading number="0X"`) et l'ajouter à `lib/nav.ts` pour que la sidebar reste la source unique de vérité de la nav
 
 ### À ne jamais faire
 
@@ -400,6 +410,8 @@ pnpm type-check
 - Inline styles (utiliser Tailwind)
 - Composants trop longs (max ~150 lignes, découper si besoin)
 - Hardcoder le contenu dans les composants (passer par `content/`)
+- Réintroduire des boutons `rounded-full`/pilule ou des cards avec `shadow` + `hover:scale` (c'est l'esthétique générique qu'on a délibérément abandonnée)
+- Mettre un `backdrop-blur`/`filter`/`transform` sur un ancêtre direct d'un overlay `position: fixed` (voir piège connu ci-dessus)
 
 ### Convention de commits
 

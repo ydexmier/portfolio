@@ -90,12 +90,22 @@ export function Sidebar() {
       <div className="flex items-center justify-between">
         <ul className="flex gap-5 text-sm text-muted">
           <li>
-            <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-accent">
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent"
+            >
               LinkedIn
             </a>
           </li>
           <li>
-            <a href={profile.github} target="_blank" rel="noopener noreferrer" className="hover:text-accent">
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent"
+            >
               GitHub
             </a>
           </li>

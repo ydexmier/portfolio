@@ -18,7 +18,14 @@ export function ContactForm() {
         <label htmlFor="name" className="font-mono text-xs uppercase tracking-wider text-muted">
           Nom
         </label>
-        <input id="name" name="name" type="text" required autoComplete="name" className={fieldStyles} />
+        <input
+          id="name"
+          name="name"
+          type="text"
+          required
+          autoComplete="name"
+          className={fieldStyles}
+        />
       </div>
       <div>
         <label htmlFor="email" className="font-mono text-xs uppercase tracking-wider text-muted">
@@ -42,7 +49,9 @@ export function ContactForm() {
 
       <div role="status" aria-live="polite">
         {state.status !== "idle" && state.message ? (
-          <p className={state.status === "success" ? "text-sm text-accent" : "text-sm text-red-500"}>
+          <p
+            className={state.status === "success" ? "text-sm text-accent" : "text-sm text-red-500"}
+          >
             {state.message}
           </p>
         ) : null}
