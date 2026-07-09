@@ -1,0 +1,35 @@
+---
+interface Props {
+  value?: string
+  suit?: '♠' | '♥' | '♦' | '♣'
+  number?: number
+  class?: string
+}
+
+const { value, suit = '♠', number, class: className = '' } = Astro.props
+
+const isRed = suit === '♥' || suit === '♦'
+const cornerColor = isRed ? 'text-red' : 'text-ink'
+---
+
+<article class={`relative bg-card-bg border border-border rounded-sm p-6 ${className}`}>
+  <!-- Coin haut-gauche -->
+  <div class={`absolute top-3 left-4 font-mono text-sm leading-none ${cornerColor}`}>
+    {number !== undefined ? number : value}
+    <div class="text-base">{suit}</div>
+  </div>
+
+  <!-- Contenu central -->
+  <div class="mt-4">
+    <slot />
+  </div>
+
+  <!-- Coin bas-droit miroir -->
+  <div
+    class={`absolute bottom-3 right-4 font-mono text-sm leading-none rotate-180 ${cornerColor}`}
+    aria-hidden="true"
+  >
+    {number !== undefined ? number : value}
+    <div class="text-base">{suit}</div>
+  </div>
+</article>

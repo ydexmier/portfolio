@@ -1,0 +1,33 @@
+---
+import CardSuits from '@/components/ui/CardSuits.astro'
+import { useTranslations, getLocalizedPath } from '@/i18n/utils'
+import type { Lang } from '@/i18n/ui'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+---
+
+<section id="contact" class="py-20 px-6 text-center">
+  <div class="max-w-lg mx-auto">
+    <CardSuits class="mb-8 justify-center" />
+
+    <p class="font-mono text-xs tracking-widest text-red uppercase mb-3">
+      {t('contact.label')}
+    </p>
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-ink mb-4">
+      {t('contact.title')}
+    </h2>
+    <p class="text-ink-muted mb-10">{t('contact.subtitle')}</p>
+
+    <a
+      href={getLocalizedPath('/contact', lang)}
+      class="inline-block font-sans bg-ink text-paper px-8 py-4 text-sm hover:bg-red transition-colors"
+    >
+      {t('contact.cta')}
+    </a>
+  </div>
+</section>

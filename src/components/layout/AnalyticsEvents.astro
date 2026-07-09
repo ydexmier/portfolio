@@ -1,0 +1,58 @@
+<script>
+  declare global {
+    interface Window {
+      gtag?: (...args: [string, ...unknown[]]) => void
+      dataLayer?: unknown[]
+    }
+  }
+
+  function gtagSend(name: string, params?: Record<string, string>) {
+    window.gtag?.('event', name, params)
+  }
+
+  // Click tracking via data-ga attribute
+  document.addEventListener('click', (e) => {
+    const target = (e.target as Element).closest('[data-ga]')
+    if (!target) return
+
+    const action = target.getAttribute('data-ga') ?? ''
+    const label = target.getAttribute('data-ga-label') ?? undefined
+
+    switch (action) {
+      case 'cv_download':
+        gtagSend('file_download', {
+          file_name: 'cv-yoann-dexmier.pdf',
+          ...(label ? { link_text: label } : {}),
+        })
+        break
+      case 'linkedin_click':
+        gtagSend('click', { event_category: 'outbound', event_label: 'LinkedIn' })
+        break
+      case 'email_click':
+        gtagSend('click', { event_category: 'contact', event_label: 'email' })
+        break
+    }
+  })
+
+  // Section visibility — fired once per section, on first intersection ≥ 30 %
+  const TRACKED_SECTIONS = ['plateau', 'figures', 'jetons', 'hors-table', 'contact']
+  const seen = new Set<string>()
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue
+        const id = (entry.target as HTMLElement).id
+        if (!id || seen.has(id)) continue
+        seen.add(id)
+        gtagSend('section_view', { section_id: id })
+      }
+    },
+    { threshold: 0.3 }
+  )
+
+  TRACKED_SECTIONS.forEach((id) => {
+    const el = document.getElementById(id)
+    if (el) observer.observe(el)
+  })
+</script>

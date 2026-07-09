@@ -1,6 +1,6 @@
 # CLAUDE.md — Portfolio Yoann Dexmier
 
-> Fichier de contexte pour Claude Code. À placer à la racine du projet.
+> Fichier de contexte pour Claude Code.
 
 ---
 
@@ -13,13 +13,11 @@
 **Email :** yoanndexmier.pro@gmail.com  
 **Téléphone :** 0670667215  
 **LinkedIn :** linkedin.com/in/yoann-dexmier  
+**GitHub :** github.com/ydexmier  
 **Expérience :** 10 ans  
 **Disponibilité :** Télétravail ou présentiel
 
-### Accroche (hero)
-
-> Ce qui me motive depuis 10 ans ? Construire des interfaces que les gens utilisent vraiment — et qui durent.
-> Développeur Frontend Senior React/TypeScript, j'ai travaillé sur des projets à fort impact : configurateur Peugeot/Citroën/DS dans 30+ pays, refonte e-commerce, Design Systems de 30+ composants. Rigoureux et naturellement tourné vers la collaboration, je fais le lien entre technique et expérience utilisateur. Aujourd'hui, j'intègre l'IA dans mon workflow pour aller encore plus loin.
+> Les données du profil sont dans `src/content/profile.ts` — ne jamais les dupliquer dans les composants.
 
 ### Softskills (à intégrer naturellement dans les textes)
 
@@ -27,71 +25,63 @@
 
 - Approche consciencieuse et méthodique (réussit par l'effort)
 - Prise de décision raisonnée, pas précipitée
-- Style d'apprentissage : approfondir, se fier aux informations éprouvées
 - Fort besoin de stabilité et d'investissement dans la durée
 - Organisation et structuration avant l'action
 - Soutien aux autres comme activité prioritaire (100%)
 - Bienveillance, proximité, respect
 
-**Softskills affichés sur le CV :**
-
-- Empathie
-- Gestion des priorités
-- Curiosité technologique
-- Autonomie
-- Gestion du temps
-- Résolution de problèmes
-- Adaptabilité
-- Esprit d'équipe
-- Supporter / Accompagner / Aider
-
 ### Centres d'intérêt
 
-Lecture • Cinéma • Tennis de Table • Jeux de sociétés
+Lecture • Jeux de société • Tennis de Table • Jeux vidéo • Food
 
 ---
 
 ## 🛠️ Stack Technique
 
-### Framework principal
+### Framework
 
-- **Next.js 15** (App Router) + **React 19** + **TypeScript**
-- Raison : SSG/SSR natif pour SEO optimal, déploiement Vercel zero-config, React Server Components pour performance maximale
+- **Astro 5** — zéro JS par défaut, pages statiques pré-rendues, islands React là où JS est nécessaire
+- **React 19** + **@astrojs/react** — uniquement pour `ContactForm.tsx` (formulaire interactif)
+- **TypeScript strict**
 
 ### Style
 
-- **Tailwind CSS v4**
-- Raison : utility-first, parfaitement intégré Next.js, pas de runtime CSS
+- **Tailwind CSS v4** — via `@tailwindcss/vite` (plugin Vite, pas de fichier `tailwind.config`)
+- Tokens définis dans `src/styles/global.css` via `@theme {}`, pas de config externe
+- **Approche Tailwind-first** : utiliser les classes Tailwind pour tout. Scoped `<style>` uniquement pour les cas impossibles (voir règles plus bas)
+
+### Polices (auto-hébergées via fontsource, pas de CDN)
+
+| Token Tailwind | Police                      | Usage                                               |
+| -------------- | --------------------------- | --------------------------------------------------- |
+| `font-logo`    | Young Serif                 | H1, H2 de sections, titres narratifs, nom           |
+| `font-ui`      | Archivo Variable            | Nav, kickers, boutons, labels techniques, pastilles |
+| `font-serif`   | Georgia (built-in Tailwind) | Corps de texte, bio, descriptions, métadonnées      |
+| `font-mono`    | IBM Plex Mono               | Coins de cartes (rang/enseigne), données brutes     |
+| `font-display` | Fraunces Variable           | Défini mais **non utilisé en pratique**             |
 
 ### Animations
 
-- **Motion (ex-Framer Motion)** — animations déclaratives React, layout transitions, scroll-based
-- **GSAP** (optionnel) — si animations complexes type scroll-pinned ou text reveals
-- Respecter `prefers-reduced-motion` via le hook `useReducedMotion` de Motion
+- **CSS pur** — préféré pour tous les effets visuels (hover, transforms, flip 3D, fan de cartes)
+- **React island** (`client:load`) — uniquement pour `ContactForm.tsx` (états idle/sending/success/error)
+- Toujours `motion-reduce:transition-none` ou `@media (prefers-reduced-motion: reduce)` quand des transitions sont présentes
+
+### Internationalisation
+
+- **Astro i18n intégré** — FR (défaut, sans préfixe) + EN (sous `/en/`)
+- Toutes les chaînes de texte dans `src/i18n/ui.ts`, accessibles via `t('clé')`
 
 ### Déploiement
 
-- **Vercel** — zero-config, preview deployments automatiques, analytics intégrés
-- Domaine custom recommandé : `yoanndexmier.fr` ou `yoanndexmier.dev`
+- **Vercel** + adapter `@astrojs/vercel`
+- Port dev par défaut : **4321**
 
-### Qualité & SEO
+### Qualité
 
-- **Vercel Analytics** + **Vercel Speed Insights**
-- **next/image** pour optimisation automatique des images
-- **next/font** : Geist Sans (corps), Geist Mono (accents/dates/tags), Fraunces (titres sérif)
-- Sitemap auto + robots.txt + JSON-LD schema
-- **Lighthouse score cible : 95+** sur toutes les métriques
-- Accessibilité **WCAG AA** obligatoire (c'est une compétence clé à démontrer)
-
-### Tests
-
-- **Vitest** + **Testing Library** pour les composants critiques
-
-### Outils de dev
-
-- **pnpm** (gestionnaire de paquets)
-- **ESLint** + **Prettier** + **Husky** (pre-commit hooks)
-- **TypeScript strict mode**
+- **Prettier** + **prettier-plugin-astro** (pre-commit via Husky)
+- **`astro check`** — vérification TypeScript des fichiers `.astro`
+- **Lighthouse score cible : 95+**
+- Accessibilité **WCAG AA** obligatoire
 
 ---
 
@@ -99,44 +89,61 @@ Lecture • Cinéma • Tennis de Table • Jeux de sociétés
 
 ```
 portfolio/
-├── app/                        # Next.js App Router
-│   ├── layout.tsx              # Layout global : fonts, metadata, JSON-LD, Sidebar + MobileTopbar + Footer
-│   ├── page.tsx                # Homepage one-page (Hero, About, Skills, Projects, Experience, Contact)
-│   ├── globals.css             # Tokens couleur (light/dark), @custom-variant dark, grain-overlay
-│   ├── actions/
-│   │   └── contact.ts          # Server action (Resend) du formulaire de contact
-│   ├── projects/
-│   │   ├── page.tsx            # Liste des projets (mêmes rows que la section homepage)
-│   │   └── [slug]/
-│   │       └── page.tsx        # Case study détaillé (generateStaticParams)
-│   ├── contact/
-│   │   └── page.tsx            # Page contact dédiée (réutilise <Contact />)
-│   ├── sitemap.ts
-│   └── robots.ts
-├── components/
-│   ├── ui/                     # Button, Badge (tag mono), Container, SectionHeading, ProjectCard, Reveal
-│   ├── sections/                # Hero, About, Skills, Projects, Experience, Contact, ContactForm
-│   └── layout/
-│       ├── sidebar.tsx          # Sidebar fixe desktop : identité, nav numérotée + scrollspy, socials
-│       ├── mobile-topbar.tsx    # Topbar + menu plein écran sur mobile (lg:hidden)
-│       ├── theme-provider.tsx   # Contexte dark/light + script anti-flash injecté en <head>
-│       ├── theme-toggle.tsx
-│       └── footer.tsx           # Simple ligne de crédit mono
-├── content/
-│   ├── profile.ts              # Identité, accroche, à propos, formations, soft skills
-│   ├── skills.ts                # Catégories de compétences
-│   ├── projects.ts              # Études de cas (Contexte/Problème/Solution/Stack/Résultat)
-│   └── experience.ts            # Timeline (liée aux projets par slug)
-├── lib/
-│   ├── utils.ts                 # cn() (clsx + tailwind-merge)
-│   ├── metadata.ts               # buildMetadata() + siteConfig (SEO)
-│   └── nav.ts                    # Source unique des items de nav (id, numéro, label, href)
+├── src/
+│   ├── components/
+│   │   ├── islands/
+│   │   │   └── ContactForm.tsx      # Seul island React — formulaire contact
+│   │   ├── layout/
+│   │   │   ├── Navbar.astro         # Nav sticky — contextuelle (voir règle nav)
+│   │   │   ├── Footer.astro         # Fond sombre — prop compact (voir règle footer)
+│   │   │   ├── GoogleAnalytics.astro # Injection script GA4 (conditionnel)
+│   │   │   └── AnalyticsEvents.astro # Tracking clics + IntersectionObserver sections
+│   │   ├── pages/                   # Contenu réel des pages (reçoit lang en prop)
+│   │   │   ├── HomePage.astro
+│   │   │   ├── AProposPage.astro
+│   │   │   └── ContactPage.astro
+│   │   ├── sections/                # Sections de la homepage
+│   │   │   ├── Hero.astro           # Photo, nom, tagline, dés animés
+│   │   │   ├── Plateau.astro        # Timeline en cartes numérotées
+│   │   │   ├── Figures.astro        # 2 projets phares (cartes grandes)
+│   │   │   ├── Jetons.astro         # Compétences en pill-badges
+│   │   │   ├── HorsTable.astro      # Loisirs en éventail CSS pur (flip 3D)
+│   │   │   └── Formation.astro      # Formations (homepage + à-propos, prop topPadding)
+│   │   └── ui/
+│   │       └── SectionHeader.astro  # En-tête réutilisable (kicker + titre + sous-titre)
+│   ├── content/                     # Source unique des données
+│   │   ├── profile.ts               # Identité, bio, aboutParagraphs, aboutRules, formations
+│   │   ├── plateau.ts               # 8 cases du plateau (PlateauCase[])
+│   │   ├── figures.ts               # 2 projets phares (Figure[])
+│   │   ├── skills.ts                # 3 rangées jetons (label + dotColor + skills[])
+│   │   ├── hobbies.ts               # 5 loisirs (rank + suit + emoji + title + anecdote)
+│   │   └── projects.ts              # Projets généraux (page contact / autres usages)
+│   ├── i18n/
+│   │   ├── ui.ts                    # Dictionnaire FR + EN de toutes les chaînes UI
+│   │   └── utils.ts                 # getLangFromUrl(), useTranslations(), getLocalizedPath()
+│   ├── layouts/
+│   │   └── BaseLayout.astro         # Shell HTML — prop footerCompact
+│   ├── lib/
+│   │   └── utils.ts                 # cn() — clsx + tailwind-merge
+│   ├── pages/                       # Routing Astro (fichiers minces, délèguent à components/pages/)
+│   │   ├── index.astro
+│   │   ├── a-propos.astro
+│   │   ├── contact.astro
+│   │   ├── en/
+│   │   │   ├── index.astro
+│   │   │   ├── a-propos.astro
+│   │   │   └── contact.astro
+│   │   └── api/
+│   │       └── contact.ts           # POST endpoint Resend (prerender = false)
+│   └── styles/
+│       └── global.css               # @import tailwindcss + @theme {} (tokens)
 ├── public/
-│   └── cv-yoann-dexmier.pdf      # CV téléchargeable (à fournir, absent du repo)
-├── CLAUDE.md                     # Ce fichier
-├── vitest.config.ts / vitest.setup.ts
-├── next.config.ts
+│   ├── cv-yoann-dexmier.pdf
+│   └── favicon.svg
+├── design_handoff_portfolio/        # Maquettes de référence (ne pas supprimer)
+├── astro.config.mjs
 ├── tsconfig.json
+├── vercel.json
 └── package.json
 ```
 
@@ -144,220 +151,153 @@ portfolio/
 
 ## 📄 Sections & Contenu
 
-### 1. Hero
+### Structure homepage (ordre d'affichage)
 
-- Label mono : "Bonjour, je suis Yoann Dexmier"
-- Titre sérif (Fraunces) : l'accroche (voir ci-dessus)
-- Grille de faits mono (dt/dd) : Rôle · Expérience · Lieu · Dispo — pas d'avatar/photo
-- CTA : "Voir mes projets →" (bouton bordé) + "Me contacter" (lien texte)
-- Animation d'entrée en stagger (Motion), respecte `useReducedMotion`
+| Section        | ID ancre      | Concept                         | Données source              |
+| -------------- | ------------- | ------------------------------- | --------------------------- |
+| Hero           | —             | Photo + nom + dés flottants     | `profile.ts`                |
+| Le Plateau     | `#plateau`    | Timeline = plateau de jeu       | `plateau.ts`                |
+| Les Figures    | `#figures`    | Projets phares = cartes grandes | `figures.ts` (PSA + Yoomap) |
+| Mes Jetons     | `#jetons`     | Compétences = pill-badges       | `skills.ts`                 |
+| Hors Table     | `#hors-table` | Loisirs = éventail flip 3D      | `hobbies.ts`                |
+| Formation      | —             | Formations centrées             | `profile.ts` (formations[]) |
+| Footer contact | `#contact`    | CTA mailto + coordonnées        | `profile.ts` + i18n         |
 
-### 2. À propos
+### Page À propos (`/a-propos`)
 
-**Texte :**
+Ordre : Hero réduit → Bio (5 §, lettrine) → Règles du jeu (3 cartes) → Formation → Footer compact
 
-> Ce qui me motive depuis 10 ans ? Construire des interfaces que les gens utilisent vraiment — et qui durent. Développeur Frontend Senior spécialisé React/TypeScript, je fais le lien entre enjeux métier et expérience utilisateur. Rigoureux, organisé, naturellement tourné vers la collaboration. Aujourd'hui, j'intègre l'IA dans mon workflow pour aller encore plus loin.
+### Pages séparées
 
-- Valeurs affichées en texte mono inline (pas de badges/pills) : Qualité / Accessibilité / Durabilité / Collaboration
-- Lien téléchargement CV (PDF) en bouton bordé
-- Formations + centres d'intérêt en liste typographique simple (pas de card)
-- Réseaux sociaux portés par la Sidebar, pas dupliqués dans la section
-
-### 3. Compétences
-
-**Frontend — Cœur de métier**
-
-- JavaScript / TypeScript
-- React / Next.js
-- HTML5 / CSS3
-- Architecture de composants
-- Design Systems / Storybook
-- Performance web / WCAG / Accessibilité
-
-**Workflow & Méthodes**
-
-- Git / GitHub / GitLab
-- CI/CD
-- Tests unitaires (Jest / Vitest)
-- Méthode Agile / Scrum
-
-**IA & Automatisation**
-
-- LLM / Automatisations
-- Claude Code
-- AI-powered features
-- Workflow assisté par IA
-
-**Notions**
-
-- Node.js / API REST
-- PHP / Symfony
-- MongoDB
-
-### 4. Projets (Case Studies)
-
-> ⚠️ Chaque projet suit la structure : Contexte → Problème → Solution → Stack → Résultat
-
-#### 🚗 PSA — Configurateur automobile international
-
-- **Période :** 2016-2019 (TimmXware)
-- **Contexte :** Mission chez PSA au sein d'une équipe Agile de ~15 personnes (PO, Scrum Masters, Dev Front/Back, UX/UI, DevOps)
-- **Défi :** Développer un configurateur de voiture en ligne déployé dans 30+ pays pour Peugeot, Citroën et DS, en plusieurs langues
-- **Rôle :** Développeur Frontend — Lead sur la résolution de bugs critiques en production
-- **Stack :** JavaScript ES6, ReactJS, CSS3, Stylus, Webpack, Jenkins, Git
-- **Impact :** Outil utilisé à grande échelle par 3 marques automobiles majeures dans 30+ pays
-
-#### 🛒 La Ruche qui dit Oui — Refonte e-commerce
-
-- **Période :** 2023-2025
-- **Contexte :** Lead développeur Frontend (équipe de 3, 2 orientés Backend)
-- **Défi :** Moderniser une base de code legacy de 10+ ans sans régression, sur l'intégralité du parcours d'achat
-- **Rôle :** Lead Frontend — pilotage complet de la refonte
-- **Stack :** ReactJS, PHP/Symfony, Google Analytics, Git
-- **Impact :** Refonte de 12 pages (catalogue, fiches produits, tunnel d'achat), suivi analytics des évolutions
-
-#### 🔍 Questel — Module from scratch
-
-- **Période :** 2021-2023
-- **Contexte :** Équipe de 3 devs Frontend, collaboration distancielle avec Backend et PO à Sophia Antipolis
-- **Défi :** Développer un module complet from scratch + créer un Design System standalone
-- **Rôle :** Développeur Frontend Senior
-- **Stack :** ReactJS, Storybook, API REST, Git
-- **Impact :** Styleguide de 15+ composants standalone, module livré de zéro
-
-#### 🎯 Yoomap — Design System SaaS
-
-- **Période :** 2019-2021
-- **Contexte :** Équipe de 5 devs Frontend — refonte graphique du SaaS
-- **Défi :** Structurer un Design System cohérent à l'échelle de l'équipe
-- **Rôle :** Développeur Fullstack
-- **Stack :** ReactJS, Storybook, API REST, Agile/Scrum, Git
-- **Impact :** 30+ composants React dans un styleguide structuré
-
-#### 🤖 Projet personnel — Dev assisté par IA
-
-- **Période :** 2025 - Maintenant
-- **Contexte :** Autodidacte, exploration du développement assisté par IA
-- **Stack :** ReactJS, Next.js, MongoDB, Vercel, Claude Code
-- **Impact :** Démonstration concrète de l'intégration de l'IA dans le workflow dev
-
-### 5. Expérience (Timeline)
-
-Affichage chronologique inversé :
-
-- 2025 → Aujourd'hui : Projets personnels / Dev assisté IA
-- 2023 → 2025 : La Ruche qui dit Oui (2 ans)
-- 2021 → 2023 : Questel (2 ans)
-- 2019 → 2021 : Yoomap (2 ans)
-- 2016 → 2019 : TimmXware / Mission PSA (3 ans)
-- 2016 → 2019 : TimmXware — début de carrière (3 ans)
-
-### 6. Contact
-
-- Formulaire simple (nom, email, message)
-- Ou redirection vers email direct
-- Liens : LinkedIn + GitHub + Email
-- Message d'accroche : "Un projet, une opportunité, ou juste envie d'échanger ? Je réponds sous 24h."
+- `/a-propos` — bio longue, règles, formations, footer compact (28px, lien /contact)
+- `/contact` — formulaire ContactForm (island React `client:load`)
+- `/en/*` — versions EN (même composants, `lang` différent)
 
 ---
 
 ## 🎨 Design & UX
 
-### Direction artistique
+### Direction artistique : thème jeu de cartes
 
-> Inspirée des portfolios dev de référence (ex. brittanychiang.com) plutôt que des templates SaaS génériques : sidebar fixe avec identité + nav numérotée, typographie sérif + mono pour la personnalité, palette éditoriale plutôt que vert/bleu par défaut, listes typographiques plutôt que grilles de cards à ombre.
+- **Y♠D** — logo/monogramme avec enseigne pique
+- **Le Plateau** — carrière comme plateau de jeu numéroté
+- **Les Figures** — projets phares comme grandes cartes (R♠, D♦)
+- **Mes Jetons** — compétences comme jetons misés
+- **Hors Table** — loisirs en éventail, flip 3D au hover
 
-- **Layout** : sidebar fixe à gauche en desktop (`components/layout/sidebar.tsx`, largeur `340px`) portant identité, nav numérotée (01–05) avec scrollspy via `IntersectionObserver`, réseaux sociaux et toggle de thème. Le contenu principal est décalé (`lg:ml-[340px]`). Sur mobile, topbar sticky + menu plein écran (`mobile-topbar.tsx`).
-- **Palette** : papier chaud clair (`--background: #f6f2ec`, `--foreground: #1c1a17`) / encre chaude en dark (`--background: #15130f`, `--foreground: #f3ede4`), accent **terracotta** unique (`--accent: #ab4a26` clair, `#e08a5b` sombre). Variables définies dans `app/globals.css`, dark mode piloté par classe (`@custom-variant dark`), pas de media query seule.
-- **Typographie** : **Fraunces** (sérif, `font-serif-display`) pour les titres, **Geist Mono** pour les accents/numéros de section/dates/tags/labels, **Geist Sans** pour le corps de texte. Ce triptyque sérif + mono + sans est ce qui donne sa personnalité au site — ne pas revenir à "tout en Inter/Geist Sans".
-- **Pas de pilules ni de cards à ombre** : `Button` est rectangulaire bordé (jamais `rounded-full`), `Badge`/tags sont du texte mono inline séparé par `/`, les listes (compétences, projets, expérience) sont des rows séparées par `border-border`, pas des grilles de cards avec `shadow`/`hover:scale`.
-- **Numérotation des sections** : chaque `<SectionHeading number="0X" title="..." />` affiche le numéro en mono accent + un filet horizontal — cohérent avec la nav numérotée de la sidebar.
-- **Texture** : léger overlay de grain SVG (`.grain-overlay` dans `globals.css`, `mix-blend-mode: overlay`, opacité ~0.05) pour casser l'aspect "flat vector" générique.
-- Espacements généreux, hiérarchie claire, minimalisme assumé — le contenu prime sur la décoration
+### Palette exacte (tokens `global.css`)
 
-### Principes UX à respecter (= démontrer son expertise)
+| Token               | Valeur    | Usage                          |
+| ------------------- | --------- | ------------------------------ |
+| `--color-paper`     | `#f7f2e9` | Fond général                   |
+| `--color-ink`       | `#2b2118` | Texte principal                |
+| `--color-ink-muted` | `#6b5a48` | Texte secondaire               |
+| `--color-card-bg`   | `#fffdf8` | Fond des cartes                |
+| `--color-border`    | `#e4dac6` | Bordures légères               |
+| `--color-red`       | `#8e3b2f` | Accents, enseignes ♥♦, kickers |
+| `--color-gold`      | `#d9a441` | CTA footer, bouton doré        |
+| `--color-footer-bg` | `#2b2118` | Fond footer (= ink)            |
 
-- Navigation fluide sans rechargement (SPA behavior via Next.js)
-- Scroll smooth
-- Transitions de page élégantes (Motion)
-- Focus visible pour accessibilité clavier
-- Responsive mobile-first (breakpoints Tailwind)
-- Dark mode / Light mode toggle
-- `prefers-reduced-motion` respecté sur toutes les animations
-- Images optimisées via `next/image` (WebP, lazy loading)
-- Pas de Cumulative Layout Shift (CLS)
+Couleurs hors token (valeurs pixel-précises, à utiliser en arbitraire Tailwind) :
 
-### Animations recommandées
+- `#cbbba5` — texte footer discret (métadonnées)
+- `#8a7a63` — copyright footer (le plus discret)
+- `#4a3d30` — corps de texte narratif (bio, descriptions)
+- `#5c4d3d` — texte légèrement plus clair (dos de cartes HorsTable, règles)
+- `#c9b89e` — bordures légères de jetons/chips
 
-- Hero : entrée en fondu + décalage vertical (stagger), via `motion/react`
-- Sections : révélation au scroll avec le composant `<Reveal>` (`whileInView`, `viewport={{ once: true }}`)
-- Sidebar : scrollspy `IntersectionObserver` qui met en évidence la section active dans la nav
-- Projets/Expérience : pas de hover scale/shadow — simple changement de couleur du texte et `hover:bg-surface` sur les rows
-- Pas d'animation gratuite — chaque mouvement a un sens
-- Toujours vérifier avec `useReducedMotion` (Motion) avant d'animer
+### Comportement de la Navbar
 
-### Piège connu : `backdrop-filter` et `position: fixed`
+- **Homepage** : liens de section `[Le plateau | Les figures | Mes jetons | Hors table | À propos]`
+- **Autres pages** : liens simplifiés `[Accueil | À propos]`
+- Sur une page non-homepage, les ancres sont préfixées : `/#plateau`, `/#figures`, etc. (via `anchorHref()`)
 
-`filter`/`backdrop-filter` sur un ancêtre crée un nouveau containing block pour les descendants `position: fixed` (même règle que `transform`). Un `<nav>` fixed avec `top`/`bottom` imbriqué dans un parent `backdrop-blur` ne s'étire plus au viewport mais au parent (souvent `height: auto` → contenu tronqué). Toujours sortir les overlays plein écran (menu mobile, modales) du conteneur flouté/transformé, ou les rendre en sibling au même niveau.
+### Footer — variantes
 
----
+- **Full (homepage)** : `id="contact"`, `scroll-margin-top: 70px`, padding 70px, titre 34px, sous-titre, CTA `mailto:`, copyright "fait en coopération avec IA."
+- **Compact (À propos)** : pas de `id`, padding 56px, titre 28px, pas de sous-titre, CTA → `/contact`, pas de copyright
+- Contrôlé par `<BaseLayout footerCompact={true}>` → `<Footer compact={true}>`
 
-## 🔍 SEO & Performance
+### Composant SectionHeader
 
-```typescript
-// app/layout.tsx — Metadata de base
-export const metadata: Metadata = {
-  title: "Yoann Dexmier — Développeur Frontend Senior React",
-  description:
-    "Portfolio de Yoann Dexmier, développeur Frontend Senior spécialisé React/TypeScript. 10 ans d'expérience sur des projets à fort trafic.",
-  keywords: ["développeur frontend", "React", "TypeScript", "Next.js", "Paris", "Noisy-le-Grand"],
-  authors: [{ name: "Yoann Dexmier" }],
-  openGraph: {
-    title: "Yoann Dexmier — Développeur Frontend Senior",
-    description: "Portfolio · React · TypeScript · Design System · 10 ans d'expérience",
-    url: "https://yoanndexmier.dev",
-    siteName: "Yoann Dexmier",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
-    locale: "fr_FR",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Yoann Dexmier — Développeur Frontend Senior",
-  },
-  robots: { index: true, follow: true },
-};
-```
+Réutilisable pour toutes les sections. Props : `kicker`, `title`, `subtitle?`.
+
+- Kicker : Archivo 600, 13px, uppercase, letter-spacing 4px, `text-red`
+- Titre H2 : Young Serif 30px, `text-ink`
+- Sous-titre : Georgia 14px, `#8a7a63`
+
+### Éventail HorsTable (CSS pur)
+
+- Fan de 5 cartes avec transforms d'éventail passés en **inline style** (via index)
+- Hover : `translateY(-14px) rotate(0deg) !important` (nécessite `!important` pour écraser l'inline style)
+- Flip 3D : `perspective`, `transform-style: preserve-3d`, `backface-visibility: hidden` via classes Tailwind arbitraires
+- `group`/`group-hover` Tailwind pour déclencher le flip sur `.mini-in` depuis le hover `.mini`
+- `prefers-reduced-motion` : `motion-reduce:transition-none`
 
 ---
 
-## ⚙️ Configuration Vercel
+## 🌐 Internationalisation
 
-```json
-// vercel.json
-{
-  "framework": "nextjs",
-  "buildCommand": "pnpm build",
-  "devCommand": "pnpm dev",
-  "installCommand": "pnpm install",
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "X-XSS-Protection", "value": "1; mode=block" }
-      ]
-    }
-  ]
-}
+- **Ne jamais hardcoder de texte** dans les composants — utiliser `t('clé')` systématiquement
+- Toute nouvelle clé doit être ajoutée dans `src/i18n/ui.ts` en FR **et** EN simultanément
+- La langue est détectée via `getLangFromUrl(Astro.url)` dans les pages de routing
+- Les composants reçoivent `lang` en prop depuis les pages de routing
+
+---
+
+## 📊 Analytics (Google Analytics 4)
+
+### Architecture
+
+| Composant                                     | Rôle                                                                                                                                  |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/components/layout/GoogleAnalytics.astro` | Injecte le script GA4 dans le `<head>` via `BaseLayout.astro` — conditionnel : inactif si `PUBLIC_GA_MEASUREMENT_ID` n'est pas défini |
+| `src/components/layout/AnalyticsEvents.astro` | Script Astro (bundlé) : tracking des clics via `data-ga` + Intersection Observer pour les sections                                    |
+
+### Événements custom trackés
+
+| Événement GA4         | Déclencheur                                           | Paramètre clé                              |
+| --------------------- | ----------------------------------------------------- | ------------------------------------------ |
+| `file_download`       | Clic sur lien CV (`data-ga="cv_download"`)            | `file_name`, `link_text: "navbar"\|"hero"` |
+| `click` (outbound)    | Clic LinkedIn (`data-ga="linkedin_click"`)            | `event_category: "outbound"`               |
+| `click` (contact)     | Clic mailto (`data-ga="email_click"`)                 | `event_category: "contact"`                |
+| `section_view`        | Scroll ≥ 30 % sur une section trackée, une seule fois | `section_id`                               |
+| `contact_form_submit` | Soumission formulaire — succès uniquement             | `event_category: "contact"`                |
+| Page views            | Automatique via GA4                                   | —                                          |
+
+### Sections observées par l'IntersectionObserver
+
+`plateau` · `figures` · `jetons` · `hors-table` · `contact`
+
+### Convention data-ga
+
+- `data-ga="<action>"` — sur l'élément cliquable, déclenche le tracking
+- `data-ga-label="<contexte>"` — précision optionnelle (ex: `"hero"`, `"navbar"`, `"footer_cta"`)
+- Tout nouvel élément à tracker doit utiliser cette convention plutôt qu'un script inline
+
+### Règle : ne pas utiliser window.gtag directement dans les composants
+
+Sauf dans `ContactForm.tsx` (island React) où `window.gtag?.()` est inévitable. Pour tout autre élément, ajouter `data-ga` et laisser `AnalyticsEvents.astro` gérer.
+
+---
+
+## 🔍 SEO
+
+Props de `BaseLayout.astro` :
+
+```astro
+<BaseLayout title={t('meta.home.title')} description={t('meta.home.description')} />
 ```
 
-**Variables d'environnement Vercel à configurer :**
+Clés dans `src/i18n/ui.ts` : `meta.home.title`, `meta.home.description`, `meta.about.description`, `meta.contact.description`.
+
+---
+
+## ⚙️ Variables d'environnement
 
 ```
-NEXT_PUBLIC_SITE_URL=https://yoanndexmier.dev
-RESEND_API_KEY=xxx  # Si formulaire de contact via Resend
+RESEND_API_KEY=xxx              # Requis pour l'endpoint /api/contact
+PUBLIC_GA_MEASUREMENT_ID=G-XXX # Optionnel — Google Analytics 4 (voir section Analytics)
 ```
 
 ---
@@ -365,23 +305,11 @@ RESEND_API_KEY=xxx  # Si formulaire de contact via Resend
 ## 🚀 Commandes
 
 ```bash
-# Installation
-pnpm install
-
-# Développement
-pnpm dev
-
-# Build production
-pnpm build
-
-# Linter
-pnpm lint
-
-# Tests
-pnpm test
-
-# Vérification TypeScript
-pnpm type-check
+pnpm dev          # Serveur de développement (http://localhost:4321)
+pnpm build        # Build production
+pnpm preview      # Prévisualiser le build
+pnpm type-check   # Vérification TypeScript via astro check
+pnpm format       # Formatage Prettier (inclut .astro)
 ```
 
 ---
@@ -390,28 +318,34 @@ pnpm type-check
 
 ### À toujours faire
 
-- Utiliser TypeScript strict, jamais `any`
-- Composants en arrow functions avec types explicites
-- Nommer les composants en PascalCase, les fichiers en kebab-case
-- `next/image` obligatoire pour toutes les images
-- `next/link` obligatoire pour tous les liens internes
-- Respecter `prefers-reduced-motion` sur toutes les animations
-- Attributs `aria-*` sur tous les éléments interactifs
-- Textes alternatifs sur toutes les images
-- Garder la cohérence visuelle : titres en `font-serif-display` (Fraunces), numéros/dates/tags en `font-mono`, accent unique `text-accent`/`border-accent`
-- Numéroter toute nouvelle section homepage (`SectionHeading number="0X"`) et l'ajouter à `lib/nav.ts` pour que la sidebar reste la source unique de vérité de la nav
+- TypeScript strict, jamais `any`
+- **Toujours utiliser `t('clé')`** pour les textes — aucun string en dur dans les composants
+- Ajouter toute nouvelle clé dans `src/i18n/ui.ts` en FR et EN simultanément
+- Toutes les données viennent de `src/content/` — jamais hardcodées dans les composants
+- `aria-*` sur tous les éléments interactifs
+- `alt` sur toutes les images
+- `motion-reduce:transition-none` ou `@media (prefers-reduced-motion: reduce)` sur toute transition/animation
+- **Tailwind-first** : utiliser les classes Tailwind (y compris arbitraires `text-[13.5px]`, `leading-[1.65]`, `max-[760px]:`) avant de recourir à un bloc `<style>`
+
+### Quand utiliser un bloc `<style>` scoped
+
+Uniquement pour les cas **impossibles** en Tailwind :
+
+- `::first-letter`, `::before`, `::after` (pseudo-éléments avec contenu ou float)
+- `!important` pour écraser un **inline style** (ex: hover qui override un `style=` d'éventail)
+- Sélecteurs parents-enfants dynamiques non couverts par `group-hover` (rare)
+
+Jamais pour : couleurs, fonts, espacements, responsive, hover simples — tout ça se fait en classes Tailwind.
 
 ### À ne jamais faire
 
 - `any` en TypeScript
-- `<img>` sans `next/image`
-- `<a>` pour les liens internes (utiliser `<Link>`)
-- Animations sans fallback `prefers-reduced-motion`
-- Inline styles (utiliser Tailwind)
-- Composants trop longs (max ~150 lignes, découper si besoin)
-- Hardcoder le contenu dans les composants (passer par `content/`)
-- Réintroduire des boutons `rounded-full`/pilule ou des cards avec `shadow` + `hover:scale` (c'est l'esthétique générique qu'on a délibérément abandonnée)
-- Mettre un `backdrop-blur`/`filter`/`transform` sur un ancêtre direct d'un overlay `position: fixed` (voir piège connu ci-dessus)
+- Texte en dur dans un composant
+- Créer un island React pour quelque chose faisable en CSS ou Astro pur
+- `<script>` inline dans les composants Astro (sauf `GoogleAnalytics.astro` et `AnalyticsEvents.astro` qui sont des composants d'infrastructure dédiés)
+- Appeler `window.gtag()` directement dans un composant — utiliser `data-ga` à la place (sauf `ContactForm.tsx`)
+- Dupliquer la logique de langue — toujours passer `lang` en prop depuis les pages de routing
+- Apostrophes non-échappées dans les strings TypeScript (`'`, utiliser `"` ou échapper)
 
 ### Convention de commits
 
@@ -421,20 +355,14 @@ fix: correction accessibilité header
 style: ajustement espacements hero
 perf: optimisation images projets
 a11y: ajout aria-labels navigation
+i18n: ajout traduction EN section jetons
 ```
 
 ---
 
 ## 🎯 Objectif du portfolio
 
-Ce portfolio a un double objectif :
+1. **Attirer des recruteurs** en CDI dans des entreprises françaises (fintech, grandes entreprises, secteur public) autour de Paris / Noisy-le-Grand ou en remote
+2. **Démontrer l'expertise** React, accessibilité, qualité frontend et intégration IA — le portfolio lui-même est une preuve de compétence
 
-1. **Attirer des recruteurs** en CDI dans des entreprises françaises (secteur public, fintech, grandes entreprises) autour de Paris / Noisy-le-Grand ou en remote — **télétravail ou présentiel**
-2. **Démontrer l'expertise** en React, accessibilité et qualité frontend — le portfolio lui-même est une preuve de compétence
-
-Le ton est **professionnel mais humain** — mettre en avant l'empathie, la rigueur, l'esprit d'équipe et l'envie de s'inscrire dans la durée plutôt que de "vendre" des compétences de façon froide.
-
-### Formations
-
-- **Concepteur Web** — Institut IEF2I, Vincennes (2013-2014)
-- **Licences Informatique** — Université d'Orléans (2009-2012)
+Le ton est **professionnel mais humain** — empathie, rigueur, esprit d'équipe, envie de s'inscrire dans la durée.

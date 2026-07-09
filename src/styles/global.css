@@ -1,0 +1,63 @@
+@import '@fontsource/young-serif';
+@import '@fontsource-variable/archivo';
+@import '@fontsource-variable/fraunces';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import 'tailwindcss';
+
+@theme {
+  /* Couleurs — valeurs exactes extraites des maquettes */
+  --color-paper: #f7f2e9;
+  --color-ink: #2b2118;
+  --color-ink-muted: #6b5a48;
+  --color-card-bg: #fffdf8;
+  --color-border: #e4dac6;
+  --color-red: #8e3b2f;
+  --color-gold: #d9a441;
+  --color-footer-bg: #2b2118;
+  --color-footer-text: #f7f2e9;
+  --color-footer-gold: #d9a441;
+
+  /* Navbar */
+  --color-nav-border: #e4dac6;
+  --color-lang-border: #c9b89e;
+  --color-lang-bg: #fffdf8;
+
+  /* Pastilles "Mes Jetons" */
+  --color-chip-red: #8e3b2f;
+  --color-chip-orange: #c46a2a;
+  --color-chip-teal: #2a6b7c;
+  --color-chip-green: #4a7c59;
+  --color-chip-gold: #d9a441;
+
+  /* Typographie */
+  --font-logo: 'Young Serif', Georgia, serif;
+  --font-display: 'Fraunces Variable', Georgia, serif;
+  --font-ui: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

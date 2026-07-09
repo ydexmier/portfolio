@@ -1,0 +1,283 @@
+---
+import { useTranslations, getLocalizedPath } from '@/i18n/utils'
+import type { Lang } from '@/i18n/ui'
+import { profile, getProfileContent } from '@/content/profile'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+const profileContent = getProfileContent(lang)
+---
+
+<section class="hero" aria-label="Introduction">
+  <!-- Dés décoratifs (masqués sur mobile) -->
+  <div class="die die-1" aria-hidden="true">⚄</div>
+  <div class="die die-2" aria-hidden="true">⚂</div>
+  <div class="die die-3" aria-hidden="true">⚀</div>
+
+  <!-- Photo de profil -->
+  <div class="avatar-ring">
+    <div class="avatar">
+      <img
+        src="/photo.jpg"
+        alt={profile.name}
+        width="158"
+        height="158"
+        onerror="this.style.display='none';this.nextElementSibling.removeAttribute('hidden')"
+      />
+      <span hidden aria-hidden="true" class="avatar-fallback">{profile.initials}</span>
+    </div>
+  </div>
+
+  <!-- Enseignes -->
+  <p class="suits" aria-hidden="true">♠ ♥ ♦ ♣</p>
+
+  <!-- Nom -->
+  <h1 class="hero-name">{profile.name}</h1>
+
+  <!-- Sous-titre -->
+  <p class="hero-tagline">{t('hero.tagline')}</p>
+
+  <!-- Filet -->
+  <div class="hero-divider" aria-hidden="true"></div>
+
+  <!-- Pitch -->
+  <p class="hero-pitch">{profileContent.heroDescription}</p>
+
+  <!-- CTA -->
+  <div class="hero-ctas">
+    <a
+      href={profile.cvUrl}
+      download
+      data-ga="cv_download"
+      data-ga-label="hero"
+      class="btn btn-primary">{t('hero.cta.projects')}</a
+    >
+    <a href={getLocalizedPath('/contact', lang)} class="btn btn-outline">
+      {t('hero.cta.contact')}
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 84px 48px 72px;
+  }
+
+  /* ── Dés ── */
+  .die {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+  }
+
+  .die-1 {
+    width: 58px;
+    height: 58px;
+    background: #8e3b2f;
+    color: #fff;
+    font-size: 25px;
+    top: 120px;
+    left: 8%;
+    transform: rotate(-14deg);
+    box-shadow: 0 5px 0 rgba(43, 33, 24, 0.15);
+    animation: float 5s ease-in-out infinite;
+    animation-delay: 0s;
+  }
+
+  .die-2 {
+    width: 46px;
+    height: 46px;
+    background: #d9a441;
+    color: #2b2118;
+    font-size: 20px;
+    top: 250px;
+    right: 9%;
+    transform: rotate(11deg);
+    box-shadow: 0 5px 0 rgba(43, 33, 24, 0.15);
+    animation: float 5s ease-in-out infinite;
+    animation-delay: 1.2s;
+  }
+
+  .die-3 {
+    width: 34px;
+    height: 34px;
+    background: #4a8b7b;
+    color: #fff;
+    font-size: 15px;
+    top: 70px;
+    right: 16%;
+    transform: rotate(-7deg);
+    box-shadow: 0 5px 0 rgba(43, 33, 24, 0.15);
+    animation: float 5s ease-in-out infinite;
+    animation-delay: 2.4s;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 -10px;
+    }
+  }
+
+  /* ── Photo ── */
+  .avatar-ring {
+    width: 178px;
+    height: 178px;
+    border-radius: 50%;
+    background: #fffdf8;
+    border: 1.5px solid #d8cbb6;
+    padding: 5px;
+    margin: 0 auto 30px;
+    box-shadow: 0 8px 22px rgba(43, 33, 24, 0.12);
+  }
+
+  .avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f0ebe0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .avatar-fallback {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 28px;
+    color: #c9b89e;
+  }
+
+  /* ── Enseignes ── */
+  .suits {
+    font-size: 19px;
+    letter-spacing: 15px;
+    color: #8e3b2f;
+    margin: 0 0 0 15px; /* compense le letter-spacing sur le dernier caractère */
+  }
+
+  /* ── Nom ── */
+  .hero-name {
+    font-family: 'Young Serif', Georgia, serif;
+    font-size: clamp(44px, 6vw, 64px);
+    line-height: 1.05;
+    color: #2b2118;
+    margin: 20px 0 12px;
+  }
+
+  /* ── Sous-titre ── */
+  .hero-tagline {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 17.5px;
+    color: #6b5a48;
+    margin: 0;
+  }
+
+  /* ── Filet ── */
+  .hero-divider {
+    width: 64px;
+    height: 2px;
+    background: #8e3b2f;
+    margin: 28px auto;
+  }
+
+  /* ── Pitch ── */
+  .hero-pitch {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: #4a3d30;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  /* ── CTA ── */
+  .hero-ctas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-top: 32px;
+  }
+
+  .btn {
+    padding: 14px 28px;
+    font-family: 'Archivo Variable', ui-sans-serif, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: transform 0.15s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    background: #2b2118;
+    color: #f7f2e9;
+  }
+
+  .btn-primary:hover {
+    color: #d9a441;
+  }
+
+  .btn-outline {
+    border: 1.5px solid #c9b89e;
+    background: #fffdf8;
+    color: #2b2118;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 760px) {
+    .hero {
+      padding: 64px 22px 56px;
+    }
+
+    .die {
+      display: none;
+    }
+
+    .hero-ctas {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  /* ── Accessibilité : pas d'animations si reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .die {
+      animation: none;
+    }
+
+    .btn {
+      transition: none;
+    }
+  }
+</style>

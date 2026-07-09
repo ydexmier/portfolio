@@ -1,0 +1,46 @@
+---
+import SectionHeader from '@/components/ui/SectionHeader.astro'
+import { useTranslations } from '@/i18n/utils'
+import type { Lang } from '@/i18n/ui'
+import { getSkillCategories } from '@/content/skills'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+const skillCategories = getSkillCategories(lang)
+---
+
+<section id="jetons" class="scroll-mt-[70px]">
+  <SectionHeader kicker={t('jetons.label')} title={t('jetons.title')} />
+
+  <div
+    class="flex flex-col gap-[20px] max-w-[900px] mx-auto px-12 pt-10 pb-8 max-[760px]:px-6 max-[760px]:pt-8 max-[760px]:pb-6"
+  >
+    {
+      skillCategories.map((category) => (
+        <div class="flex items-baseline gap-[20px] max-[760px]:flex-col max-[760px]:gap-[9px]">
+          <p class="shrink-0 w-[120px] text-right font-ui font-semibold text-[12px] uppercase tracking-[1.5px] text-[#8a7a63] m-0 max-[760px]:w-auto max-[760px]:text-left">
+            {category.label}
+          </p>
+          <ul class="flex flex-wrap gap-[11px] list-none m-0 p-0">
+            {category.skills.map((skill) => (
+              <li>
+                <span class="inline-flex items-center gap-[9px] px-[18px] py-[10px] rounded-full bg-card-bg border border-[#c9b89e]">
+                  <span
+                    class="w-3 h-3 rounded-full shrink-0 shadow-[inset_0_-2px_0_rgba(0,0,0,.15)]"
+                    style={`background-color: ${category.dotColor}`}
+                    aria-hidden="true"
+                  />
+                  <span class="font-serif text-[13px] text-[#4a3d30]">{skill}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>

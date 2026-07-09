@@ -1,0 +1,95 @@
+---
+import { useTranslations, getLocalizedPath } from '@/i18n/utils'
+import type { Lang } from '@/i18n/ui'
+import { profile } from '@/content/profile'
+
+interface Props {
+  lang: Lang
+  compact?: boolean
+  minimal?: boolean
+}
+
+const { lang, compact = false, minimal = false } = Astro.props
+const t = useTranslations(lang)
+---
+
+{
+  minimal ? (
+    <footer class="py-6 text-center">
+      <p class="font-serif text-[12px] text-[#8a7a63] m-0">
+        &copy; {new Date().getFullYear()} {profile.name} — {t('footer.copy')}
+      </p>
+    </footer>
+  ) : (
+    <footer
+      id={compact ? undefined : 'contact'}
+      class={`bg-[#2b2118] text-[#f7f2e9] text-center px-12 max-[760px]:px-6 scroll-mt-[70px] ${compact ? 'py-[56px]' : 'py-[70px] max-[760px]:py-[56px]'}`}
+    >
+      <p class="text-[#d9a441] text-[15px] tracking-[12px] m-0" aria-hidden="true">
+        ♠ ♥ ♦ ♣
+      </p>
+
+      <h2
+        class={`font-logo text-[#f7f2e9] mt-[18px] mb-[10px] ${compact ? 'text-[28px]' : 'text-[34px]'}`}
+      >
+        {compact ? t('about.footer.title') : t('contact.title')}
+      </h2>
+
+      {!compact && (
+        <p class="font-serif text-[14.5px] text-[#cbbba5] max-w-[440px] mx-auto leading-[1.65] m-0">
+          {t('contact.subtitle')}
+        </p>
+      )}
+
+      {compact ? (
+        <a
+          href={getLocalizedPath('/contact', lang)}
+          class="inline-block mt-[28px] font-ui font-bold text-[14.5px] text-[#2b2118] bg-[#d9a441] px-[32px] py-[15px] rounded-[12px] shadow-[0_3px_0_rgba(0,0,0,.3)] no-underline transition-transform duration-[150ms] ease-in-out hover:-translate-y-[2px] motion-reduce:transition-none"
+        >
+          {t('about.footer.cta')}
+        </a>
+      ) : (
+        <a
+          href={`mailto:${profile.email}`}
+          data-ga="email_click"
+          data-ga-label="footer_cta"
+          class="inline-block mt-[28px] font-ui font-bold text-[14.5px] text-[#2b2118] bg-[#d9a441] px-[32px] py-[15px] rounded-[12px] shadow-[0_3px_0_rgba(0,0,0,.3)] no-underline transition-transform duration-[150ms] ease-in-out hover:-translate-y-[2px] motion-reduce:transition-none"
+        >
+          {t('contact.cta')}
+        </a>
+      )}
+
+      <div
+        class={`flex justify-center flex-wrap gap-[28px] max-[760px]:flex-col max-[760px]:gap-[10px] max-[760px]:items-center ${compact ? 'mt-[30px]' : 'mt-[34px]'}`}
+      >
+        <a
+          href={`mailto:${profile.email}`}
+          data-ga="email_click"
+          data-ga-label="footer_inline"
+          class="font-ui text-[13px] text-[#cbbba5] no-underline hover:text-[#d9a441] transition-colors"
+        >
+          {profile.email}
+        </a>
+        <span class="font-ui text-[13px] text-[#cbbba5]">
+          {profile.phone.replace(/(\d{2})(?=\d)/g, '$1 ').trim()}
+        </span>
+        <a
+          href={profile.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-ga="linkedin_click"
+          class="font-ui text-[13px] text-[#cbbba5] no-underline hover:text-[#d9a441] transition-colors"
+        >
+          {profile.linkedin.replace('https://', '')}
+        </a>
+        <span class="font-ui text-[13px] text-[#cbbba5]">{profile.location}</span>
+      </div>
+
+      {!compact && (
+        <p class="font-serif text-[12px] text-[#8a7a63] mt-[44px] mb-0">
+          &copy; {new Date().getFullYear()} {profile.name} — {t('footer.copy')}
+        </p>
+      )}
+    </footer>
+  )
+}

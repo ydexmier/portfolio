@@ -1,0 +1,53 @@
+---
+import Navbar from '@/components/layout/Navbar.astro'
+import Footer from '@/components/layout/Footer.astro'
+import GoogleAnalytics from '@/components/layout/GoogleAnalytics.astro'
+import AnalyticsEvents from '@/components/layout/AnalyticsEvents.astro'
+import { getLangFromUrl } from '@/i18n/utils'
+import '@/styles/global.css'
+
+interface Props {
+  title?: string
+  description?: string
+  footerCompact?: boolean
+  footerMinimal?: boolean
+}
+
+const {
+  title = 'Yoann Dexmier — Développeur Frontend Senior',
+  description = "Portfolio de Yoann Dexmier, développeur web senior spécialisé JavaScript / React. 10 ans d'expérience sur des projets à fort impact.",
+  footerCompact = false,
+  footerMinimal = false,
+} = Astro.props
+
+const lang = getLangFromUrl(Astro.url)
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Yoann Dexmier" />
+    <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_US'} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={Astro.url.href} />
+    <GoogleAnalytics />
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <Navbar lang={lang} />
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+    <Footer lang={lang} compact={footerCompact} minimal={footerMinimal} />
+    <AnalyticsEvents />
+  </body>
+</html>
