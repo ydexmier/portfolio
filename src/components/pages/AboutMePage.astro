@@ -1,0 +1,114 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Formation from '@/components/sections/Formation.astro'
+import { useTranslations } from '@/i18n/utils'
+import type { Lang } from '@/i18n/ui'
+import { profile, getProfileContent } from '@/content/profile'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+const profileContent = getProfileContent(lang)
+---
+
+<BaseLayout
+  title={`${t('about.title')} — ${profile.name}`}
+  description={t('meta.about.description')}
+  footerCompact={true}
+>
+  <!-- ── Hero ── -->
+  <section
+    class="text-center max-w-[820px] mx-auto px-12 pt-[76px] pb-[30px] max-[760px]:px-6 max-[760px]:pt-[56px] max-[760px]:pb-5"
+  >
+    <div
+      class="w-[168px] h-[168px] rounded-full bg-card-bg border-[1.5px] border-[#d8cbb6] p-[5px] mx-auto mb-[26px] shadow-[0_8px_22px_rgba(43,33,24,.12)]"
+    >
+      <div
+        class="w-full h-full rounded-full overflow-hidden bg-[#f0ebe0] flex items-center justify-center"
+      >
+        <img
+          src="/photo.jpg"
+          alt={profile.name}
+          width="158"
+          height="158"
+          class="w-full h-full object-cover block"
+          onerror="this.style.display='none';this.nextElementSibling.removeAttribute('hidden')"
+        />
+        <span hidden aria-hidden="true" class="font-mono text-[28px] text-[#c9b89e]">
+          {profile.initials}
+        </span>
+      </div>
+    </div>
+
+    <p class="text-[17px] text-red m-0 suits-about" aria-hidden="true">♠ ♥ ♦ ♣</p>
+
+    <h1 class="font-logo text-[clamp(38px,5vw,52px)] leading-[1.05] text-ink mt-5 mb-3">
+      {t('about.title')}
+    </h1>
+
+    <p class="font-serif italic text-[16px] text-[#6b5a48] m-0">{t('about.subtitle')}</p>
+
+    <div class="w-[64px] h-[2px] bg-red mx-auto mt-[26px]"></div>
+  </section>
+
+  <!-- ── Bio ── -->
+  <section class="max-w-[660px] mx-auto px-12 pt-[10px] pb-5 max-[760px]:px-6">
+    {
+      profileContent.aboutParagraphs.map((para) => (
+        <p class="bio-para font-serif text-[15.5px] leading-[1.75] text-[#4a3d30] mb-[22px] last:mb-0 text-left">
+          {para}
+        </p>
+      ))
+    }
+  </section>
+
+  <!-- ── Ma façon de jouer ── -->
+  <section>
+    <div class="max-w-[1000px] mx-auto px-12 pt-[52px] pb-2 max-[760px]:px-6">
+      <p class="font-ui font-semibold text-[13px] uppercase tracking-[4px] text-red m-0">
+        {t('about.rules.kicker')}
+      </p>
+      <h2 class="font-logo text-[27px] text-ink mt-3 mb-0">{t('about.rules.title')}</h2>
+    </div>
+
+    <div
+      class="grid grid-cols-3 max-[760px]:grid-cols-1 gap-6 max-w-[1000px] mx-auto px-12 pt-[34px] pb-8 max-[760px]:px-6 max-[760px]:pt-7"
+    >
+      {
+        profileContent.aboutRules.map((rule) => (
+          <div class="bg-card-bg border border-[#d8cbb6] rounded-[14px] p-[26px_24px] shadow-[0_5px_14px_rgba(43,33,24,.08)] text-left">
+            <p class="font-serif text-[12px] uppercase text-red m-0">
+              {t('about.rules.number')} {rule.number}
+            </p>
+            <h3 class="font-logo text-[18px] text-ink mt-[10px] mb-2">{rule.title}</h3>
+            <p class="font-serif text-[13px] leading-[1.6] text-[#5c4d3d] m-0">{rule.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ── Formation ── -->
+  <Formation lang={lang} topPadding="pt-[34px]" />
+</BaseLayout>
+
+<style>
+  /* Lettrine : pseudo-élément impossible à exprimer en Tailwind */
+  .bio-para::first-letter {
+    font-family: 'Young Serif', Georgia, serif;
+    font-size: 34px;
+    color: #8e3b2f;
+    float: left;
+    line-height: 1;
+    padding: 3px 8px 0 0;
+  }
+
+  /* Enseignes légèrement plus petites que le hero d'accueil */
+  .suits-about {
+    letter-spacing: 13px;
+    margin-left: 13px; /* compense le trailing letter-spacing */
+  }
+</style>

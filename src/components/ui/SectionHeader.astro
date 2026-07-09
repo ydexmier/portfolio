@@ -1,0 +1,54 @@
+---
+interface Props {
+  kicker: string
+  title: string
+  subtitle?: string
+}
+
+const { kicker, title, subtitle } = Astro.props
+---
+
+<div class="section-header">
+  <p class="kicker">{kicker}</p>
+  <h2 class="title">{title}</h2>
+  {subtitle && <p class="subtitle">{subtitle}</p>}
+</div>
+
+<style>
+  .section-header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 64px 48px 8px;
+    text-align: center;
+  }
+
+  .kicker {
+    font-family: 'Archivo Variable', ui-sans-serif, sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #8e3b2f;
+    margin: 0;
+  }
+
+  .title {
+    font-family: 'Young Serif', Georgia, serif;
+    font-size: 30px;
+    color: #2b2118;
+    margin: 12px 0 6px;
+  }
+
+  .subtitle {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 14px;
+    color: #8a7a63;
+    margin: 0;
+  }
+
+  @media (max-width: 760px) {
+    .section-header {
+      padding: 48px 22px 8px;
+    }
+  }
+</style>

@@ -1,0 +1,195 @@
+---
+import { useTranslations, getLocalizedPath } from '@/i18n/utils'
+import type { Lang } from '@/i18n/ui'
+import { profile } from '@/content/profile'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+const currentPath = Astro.url.pathname
+const homePath = getLocalizedPath('/', lang)
+const isHomePage = currentPath === homePath || currentPath === homePath + '/'
+const contactPath = getLocalizedPath('/contact', lang)
+const isContactPage = currentPath === contactPath || currentPath === contactPath + '/'
+
+function anchorHref(id: string): string {
+  return isHomePage ? `#${id}` : `${homePath}#${id}`
+}
+
+const homeNavLinks = [
+  { key: 'nav.plateau' as const, href: anchorHref('plateau') },
+  { key: 'nav.figures' as const, href: anchorHref('figures') },
+  { key: 'nav.jetons' as const, href: anchorHref('jetons') },
+  { key: 'nav.horstable' as const, href: anchorHref('hors-table') },
+  { key: 'nav.apropos' as const, href: getLocalizedPath('/about-me', lang) },
+]
+
+const innerNavLinks = [
+  { key: 'nav.accueil' as const, href: homePath },
+  { key: 'nav.apropos' as const, href: getLocalizedPath('/about-me', lang) },
+]
+
+const navLinks = isHomePage ? homeNavLinks : innerNavLinks
+
+function isActive(href: string): boolean {
+  if (href.startsWith('#') || href.includes('#')) return false
+  return currentPath === href || currentPath === href + '/'
+}
+---
+
+<header class="navbar" role="banner">
+  <nav aria-label="Navigation principale">
+    <a href={getLocalizedPath('/', lang)} class="logo" aria-label="Yoann Dexmier — accueil">
+      Y<span class="logo-suit" aria-hidden="true">♠</span>D
+    </a>
+
+    <ul class="nav-links" role="list">
+      {
+        navLinks.map(({ key, href }) => (
+          <li>
+            <a
+              href={href}
+              class={`nav-link${isActive(href) ? ' active' : ''}`}
+              aria-current={isActive(href) ? 'page' : undefined}
+            >
+              {t(key)}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="nav-right">
+      <a
+        href={profile.cvUrl}
+        download
+        data-ga="cv_download"
+        data-ga-label="navbar"
+        class="flex items-center gap-2 py-[9px] pr-[15px] pl-[12px] border-[1.5px] border-[#c9b89e] rounded-[10px] bg-card-bg font-ui font-bold text-[12.5px] text-ink no-underline hover:border-red hover:text-red transition-colors"
+        aria-label={t('nav.cv')}
+      >
+        <span
+          class="w-4 h-5 rounded-[3px] shrink-0 bg-[linear-gradient(135deg,#8e3b2f,#2b2118)] flex items-center justify-center text-[#d9a441] text-[9px] leading-none"
+          aria-hidden="true">♠</span
+        >
+        {t('nav.cv')}
+      </a>
+      <a href={t('lang.toggle.href')} class="lang-btn" aria-label="Changer de langue">
+        {t('lang.toggle')}
+      </a>
+      {
+        !isContactPage && (
+          <a href={getLocalizedPath('/contact', lang)} class="cta-btn">
+            {t('nav.contact')}
+          </a>
+        )
+      }
+    </div>
+  </nav>
+</header>
+
+<style>
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(247, 242, 233, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e4dac6;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 48px;
+  }
+
+  /* Logo */
+  .logo {
+    font-family: 'Young Serif', Georgia, serif;
+    font-size: 19px;
+    color: #2b2118;
+    text-decoration: none;
+  }
+
+  .logo-suit {
+    color: #8e3b2f;
+  }
+
+  /* Liens de navigation */
+  .nav-links {
+    display: flex;
+    gap: 26px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    font-family: 'Archivo Variable', ui-sans-serif, sans-serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    color: #6b5a48;
+    text-decoration: none;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: #8e3b2f;
+  }
+
+  /* Bloc droit */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .lang-btn {
+    font-family: 'Archivo Variable', ui-sans-serif, sans-serif;
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 1px;
+    padding: 9px 14px;
+    border: 1.5px solid #c9b89e;
+    border-radius: 10px;
+    background: #fffdf8;
+    color: #2b2118;
+    text-decoration: none;
+  }
+
+  .lang-btn:hover {
+    border-color: #8e3b2f;
+    color: #8e3b2f;
+  }
+
+  .cta-btn {
+    font-family: 'Archivo Variable', ui-sans-serif, sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: #2b2118;
+    color: #f7f2e9;
+    text-decoration: none;
+  }
+
+  .cta-btn:hover {
+    color: #d9a441;
+  }
+
+  /* Mobile : masquer les liens de nav en dessous de 760px */
+  @media (max-width: 760px) {
+    nav {
+      padding: 12px 18px;
+    }
+
+    .nav-links {
+      display: none;
+    }
+  }
+</style>

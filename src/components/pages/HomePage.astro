@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Hero from '@/components/sections/Hero.astro'
+import Plateau from '@/components/sections/Plateau.astro'
+import Figures from '@/components/sections/Figures.astro'
+import Jetons from '@/components/sections/Jetons.astro'
+import HorsTable from '@/components/sections/HorsTable.astro'
+import Formation from '@/components/sections/Formation.astro'
+import { useTranslations } from '@/i18n/utils'
+import type { Lang } from '@/i18n/ui'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+---
+
+<BaseLayout title={t('meta.home.title')} description={t('meta.home.description')}>
+  <Hero lang={lang} />
+  <Plateau lang={lang} />
+  <Figures lang={lang} />
+  <Jetons lang={lang} />
+  <HorsTable lang={lang} />
+  <Formation lang={lang} />
+</BaseLayout>

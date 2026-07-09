@@ -1,0 +1,101 @@
+---
+import SectionHeader from '@/components/ui/SectionHeader.astro'
+import { useTranslations } from '@/i18n/utils'
+import type { Lang } from '@/i18n/ui'
+import { getHobbies } from '@/content/hobbies'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+const hobbies = getHobbies(lang)
+
+const isRed = (suit: string) => suit === '♥' || suit === '♦'
+
+const fanTransforms = [
+  'rotate(-8deg) translateY(16px)',
+  'rotate(-4deg) translateY(6px)',
+  'rotate(0deg)',
+  'rotate(4deg) translateY(6px)',
+  'rotate(8deg) translateY(16px)',
+]
+
+const fanZIndex = [1, 2, 3, 2, 1]
+---
+
+<section id="hors-table" class="scroll-mt-[70px]">
+  <SectionHeader
+    kicker={t('horstable.label')}
+    title={t('horstable.title')}
+    subtitle={t('horstable.subtitle')}
+  />
+
+  <div
+    class="flex justify-center items-end flex-wrap max-[760px]:gap-4 px-12 pt-[44px] pb-[60px] max-[760px]:px-6 max-[760px]:pt-9 max-[760px]:pb-12 max-[760px]:items-stretch"
+  >
+    {
+      hobbies.map((hobby, i) => (
+        <div
+          class="mini group w-[120px] h-[168px] flex-none relative [perspective:700px] transition-transform duration-[180ms] ease-in-out cursor-pointer motion-reduce:transition-none"
+          style={`transform: ${fanTransforms[i]}; z-index: ${fanZIndex[i]}`}
+          aria-label={`${hobby.title} — ${hobby.anecdote}`}
+          role="img"
+        >
+          {/* Conteneur interne 3D */}
+          <div class="absolute inset-0 [transform-style:preserve-3d] transition-[transform] duration-[550ms] ease-in-out group-hover:[transform:rotateY(180deg)] motion-reduce:transition-none">
+            {/* Face avant */}
+            <div
+              class="absolute inset-0 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] bg-card-bg border border-[#d8cbb6] rounded-[10px] shadow-[0_6px_16px_rgba(43,33,24,.12)] flex flex-col items-center justify-center gap-[10px]"
+              aria-hidden="true"
+            >
+              <div
+                class={`absolute top-[7px] left-[9px] font-ui font-bold text-[12px] leading-[1.1] text-center${isRed(hobby.suit) ? ' text-red' : ' text-ink'}`}
+              >
+                <span class="block">{hobby.rank}</span>
+                <span class="block">{hobby.suit}</span>
+              </div>
+              <div class="flex flex-col items-center gap-[10px]">
+                <span class="text-[30px] leading-none">{hobby.emoji}</span>
+                <span class="font-serif text-[12px] text-[#4a3d30] text-center px-2">
+                  {hobby.title}
+                </span>
+              </div>
+            </div>
+
+            {/* Face arrière */}
+            <div
+              class="absolute inset-0 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)] bg-card-bg border border-[#d8cbb6] rounded-[10px] shadow-[0_6px_16px_rgba(43,33,24,.12)] p-3 flex items-center justify-center"
+              aria-hidden="true"
+            >
+              <p class="font-serif text-[11px] leading-[1.55] text-[#5c4d3d] text-center m-0">
+                {hobby.anecdote}
+              </p>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  /* Le hover doit écraser le transform inline (fan) — seul !important le permet */
+  .mini:hover {
+    transform: translateY(-14px) rotate(0deg) !important;
+    z-index: 5 !important;
+  }
+
+  /* Mobile : neutralise les transforms d'éventail passées en inline style */
+  @media (max-width: 760px) {
+    .mini {
+      transform: none !important;
+      z-index: auto !important;
+    }
+
+    .mini:hover {
+      transform: translateY(-6px) !important;
+    }
+  }
+</style>

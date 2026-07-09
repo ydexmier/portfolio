@@ -1,0 +1,10 @@
+---
+interface Props {
+  color?: string
+  class?: string
+}
+
+const { color = 'text-red', class: className = '' } = Astro.props
+---
+
+<p class={`text-xl tracking-widest ${color} ${className}`} aria-hidden="true">♠ ♥ ♦ ♣</p>

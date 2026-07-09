@@ -1,0 +1,137 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { useTranslations } from '@/i18n/utils'
+import type { Lang } from '@/i18n/ui'
+import { profile } from '@/content/profile'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const t = useTranslations(lang)
+---
+
+<BaseLayout
+  title={`${t('contact.title')} — ${profile.name}`}
+  description={t('meta.contact.description')}
+  footerMinimal={true}
+>
+  <div class="flex-1 flex flex-col items-center justify-center px-6 py-[60px]">
+    <!-- Kicker + title -->
+    <p class="font-ui font-semibold text-[13px] uppercase tracking-[4px] text-red m-0">
+      {t('contact.label')}
+    </p>
+    <h1 class="font-logo text-[clamp(32px,4.5vw,44px)] text-ink text-center mt-[14px] mb-[34px]">
+      {t('contact.title')}
+    </h1>
+
+    <!-- Business card (As de pique) -->
+    <div
+      class="relative w-full max-w-[420px] bg-card-bg border-2 border-red rounded-[20px] px-[36px] pt-[44px] pb-[38px] shadow-[0_18px_44px_rgba(43,33,24,.18)] rotate-[-1.5deg] hover:rotate-0 transition-transform duration-[200ms] ease-in-out motion-reduce:transition-none"
+    >
+      <!-- Corner top-left -->
+      <div
+        class="absolute top-4 left-5 font-logo text-[24px] text-ink leading-[1.1]"
+        aria-hidden="true"
+      >
+        A<br />♠
+      </div>
+
+      <div class="text-center">
+        <!-- Photo -->
+        <div
+          class="w-[120px] h-[120px] rounded-full border-2 border-border mx-auto mb-[14px] overflow-hidden bg-paper flex items-center justify-center"
+        >
+          <img
+            src="/photo.jpg"
+            alt={profile.name}
+            width="120"
+            height="120"
+            class="w-full h-full object-cover"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+          />
+          <span
+            class="hidden w-full h-full items-center justify-center font-mono text-xl text-border"
+            aria-hidden="true">{profile.initials}</span
+          >
+        </div>
+
+        <!-- Name + role -->
+        <h2 class="font-logo text-[27px] text-ink m-0">{profile.name}</h2>
+        <p class="font-serif italic text-[14px] text-ink-muted mt-[4px] mb-0">{profile.subtitle}</p>
+
+        <!-- Divider -->
+        <div class="w-[48px] h-[2px] bg-red mx-auto mt-[16px] mb-[20px]"></div>
+
+        <!-- Buttons -->
+        <div class="flex flex-col gap-[10px]">
+          <a
+            href={`mailto:${profile.email}`}
+            class="block text-center font-ui font-semibold text-[14px] bg-ink text-card-bg py-[12px] rounded-[10px] no-underline transition-colors duration-[150ms] hover:text-gold"
+          >
+            {t('contact.btn.email')}
+          </a>
+          <a
+            href={profile.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block text-center font-ui font-semibold text-[14px] border-[1.5px] border-[#c9b89e] text-ink-muted py-[12px] rounded-[10px] no-underline transition-colors duration-[150ms] hover:border-red hover:text-red"
+          >
+            {t('contact.btn.linkedin')}
+          </a>
+          <a
+            href={profile.cvUrl}
+            download
+            class="flex items-center justify-center gap-2 font-ui font-semibold text-[14px] border-[1.5px] border-[#c9b89e] text-ink-muted py-[12px] rounded-[10px] no-underline transition-colors duration-[150ms] hover:border-red hover:text-red"
+          >
+            <span
+              class="w-[14px] h-[18px] rounded-[3px] shrink-0 bg-[linear-gradient(135deg,#8e3b2f,#2b2118)] flex items-center justify-center text-[#d9a441] text-[8px] leading-none"
+              aria-hidden="true">♠</span
+            >
+            {t('contact.btn.cv')}
+          </a>
+        </div>
+
+        <!-- Phone + city -->
+        <div class="flex justify-center gap-[16px] mt-[14px] flex-wrap">
+          <span class="font-ui text-[13px] text-[#8a7a63]">
+            {profile.phone.replace(/(\d{2})(?=\d)/g, '$1 ').trim()}
+          </span>
+          <span class="font-ui text-[13px] text-[#8a7a63]">{profile.location}</span>
+        </div>
+      </div>
+
+      <!-- Corner bottom-right -->
+      <div
+        class="absolute bottom-4 right-5 font-logo text-[24px] text-ink leading-[1.1] rotate-180"
+        aria-hidden="true"
+      >
+        A<br />♠
+      </div>
+    </div>
+
+    <!-- Availability chips -->
+    <div class="flex flex-wrap justify-center gap-[10px] mt-[24px]">
+      <span
+        class="flex items-center gap-[8px] font-ui text-[13px] text-ink border border-border rounded-full px-[14px] py-[6px]"
+      >
+        <span class="w-2 h-2 rounded-full bg-[#4a8b7b] shrink-0" aria-hidden="true"></span>
+        {t('contact.chip.cdi')}
+      </span>
+      <span
+        class="flex items-center gap-[8px] font-ui text-[13px] text-ink border border-border rounded-full px-[14px] py-[6px]"
+      >
+        <span class="w-2 h-2 rounded-full bg-[#4a8b7b] shrink-0" aria-hidden="true"></span>
+        {t('contact.chip.freelance')}
+      </span>
+    </div>
+
+    <!-- Note finale -->
+    <p
+      class="font-serif italic text-[14px] text-[#8a7a63] text-center mt-[16px] mb-0 max-w-[360px]"
+    >
+      {t('contact.note')}
+    </p>
+  </div>
+</BaseLayout>
