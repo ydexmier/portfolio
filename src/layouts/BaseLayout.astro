@@ -21,6 +21,11 @@ const {
 } = Astro.props
 
 const lang = getLangFromUrl(Astro.url)
+
+const site = 'https://yoanndexmier.yd-lab.com'
+const basePath = lang === 'en' ? Astro.url.pathname.replace(/^\/en/, '') || '/' : Astro.url.pathname
+const frUrl = `${site}${basePath}`
+const enUrl = `${site}/en${basePath === '/' ? '/' : basePath}`
 ---
 
 <!doctype html>
@@ -37,6 +42,52 @@ const lang = getLangFromUrl(Astro.url)
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_US'} />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:image" content="https://yoanndexmier.yd-lab.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Yoann Dexmier — Développeur Frontend Senior" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://yoanndexmier.yd-lab.com/og-image.png" />
+
+    <!-- JSON-LD Person schema -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Yoann Dexmier',
+        jobTitle: lang === 'fr' ? 'Développeur Frontend Senior' : 'Senior Frontend Developer',
+        url: 'https://yoanndexmier.yd-lab.com',
+        email: 'yoanndexmier.pro@gmail.com',
+        telephone: '+33670667215',
+        image: 'https://yoanndexmier.yd-lab.com/photo.jpg',
+        sameAs: ['https://linkedin.com/in/yoann-dexmier', 'https://github.com/ydexmier'],
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Noisy-le-Grand',
+          addressRegion: 'Île-de-France',
+          addressCountry: 'FR',
+        },
+        knowsAbout: [
+          'React',
+          'TypeScript',
+          'JavaScript',
+          'Frontend Development',
+          'Design Systems',
+          'Accessibility',
+        ],
+      })}
+    />
+
+    <!-- Hreflang FR / EN -->
+    <link rel="alternate" hreflang="fr" href={frUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={frUrl} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={Astro.url.href} />

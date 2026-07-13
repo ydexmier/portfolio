@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yoanndexmier.yd-lab.com/sitemap-index.xml
