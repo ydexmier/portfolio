@@ -74,13 +74,15 @@ export const ui = {
 
     'footer.copy': 'fait en coopération avec IA.',
 
-    'meta.home.title': 'Yoann Dexmier — Développeur Frontend Senior',
+    'meta.home.title': 'Yoann Dexmier — Développeur Frontend Senior React / TypeScript',
     'meta.home.description':
-      "Portfolio de Yoann Dexmier, développeur web senior spécialisé JavaScript / React. 10 ans d'expérience sur des projets à fort impact.",
+      "Yoann Dexmier, développeur Frontend Senior React / TypeScript, 10 ans d'expérience en Île-de-France. Disponible en CDI ou freelance, télétravail ou présentiel.",
+    'meta.about.title': 'À propos — Yoann Dexmier, Développeur Frontend Senior',
     'meta.about.description':
-      'Qui est Yoann Dexmier ? Sa bio complète, ses valeurs, ses formations et ses compétences.',
+      'Parcours, valeurs et formations de Yoann Dexmier — développeur React / TypeScript senior basé à Noisy-le-Grand, disponible en Île-de-France et en télétravail.',
+    'meta.contact.title': 'Contact — Yoann Dexmier, Développeur React / TypeScript',
     'meta.contact.description':
-      'Contacter Yoann Dexmier — développeur web senior disponible pour un CDI ou une mission freelance.',
+      'Contacter Yoann Dexmier — développeur Frontend Senior React / TypeScript disponible en CDI ou freelance, en Île-de-France ou en télétravail.',
   },
   en: {
     'nav.accueil': 'Home',
@@ -148,11 +150,14 @@ export const ui = {
 
     'footer.copy': 'handcrafted, no cheating.',
 
-    'meta.home.title': 'Yoann Dexmier — Senior Frontend Developer',
+    'meta.home.title': 'Yoann Dexmier — Senior Frontend Developer React / TypeScript',
     'meta.home.description':
-      'Portfolio of Yoann Dexmier, senior web developer specialized in JavaScript / React. 10 years of experience on high-impact projects.',
-    'meta.about.description': 'Who is Yoann Dexmier? His full bio, values, education and skills.',
+      'Yoann Dexmier, Senior Frontend Developer React / TypeScript with 10 years of experience. Available for full-time or freelance, remote or on-site near Paris, France.',
+    'meta.about.title': 'About — Yoann Dexmier, Senior Frontend Developer',
+    'meta.about.description':
+      'Background, values and education of Yoann Dexmier — Senior React / TypeScript developer based near Paris, available remote or on-site.',
+    'meta.contact.title': 'Contact — Yoann Dexmier, React / TypeScript Developer',
     'meta.contact.description':
-      'Contact Yoann Dexmier — senior web developer available for a full-time role or freelance mission.',
+      'Contact Yoann Dexmier — Senior Frontend Developer React / TypeScript available for full-time or freelance, remote or on-site near Paris.',
   },
 } as const
