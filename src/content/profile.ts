@@ -20,17 +20,17 @@ const profileContent = {
     heroDescription:
       "Développeur Frontend Senior React/TypeScript, j'ai travaillé sur des projets à fort impact : configurateur Peugeot/Citroën/DS dans 30+ pays, refonte e-commerce, Design Systems de 30+ composants. Attentif à la qualité du code autant qu'à ce que l'utilisateur ressent, j'aime les équipes où on peut compter les uns sur les autres. Depuis 2025, je travaille avec l'IA au quotidien.",
     aboutParagraphs: [
-      "J'ai commencé par des études d'informatique à l'Université d'Orléans, puis une formation spécialisée à l'Institut IEF2I de Vincennes. Assez vite, j'ai compris que c'était le Frontend qui m'attirait : ce que l'utilisateur voit et ressent, pas seulement ce qui tourne derrière.",
+      "J'ai commencé par des études d'informatique à l'Université d'Orléans, puis une formation spécialisée à l'Institut IEF2I de Vincennes. Assez vite, j'ai compris que c'était le Frontend qui m'attirait : le résultat visible, pas juste la technique qui le produit.",
       "TimmXware m'a permis d'enchaîner les missions en agences et PME. Symfony, JavaScript, Git au quotidien. C'est aussi via cette société que j'ai rejoint le Groupe PSA, où j'ai passé deux ans dans une équipe Agile de 15 personnes à déployer un configurateur automobile dans 30+ pays pour Peugeot, Citroën et DS.",
       "Les années suivantes m'ont amené à travailler sur des projets plus ciblés. Chez Yoomap, j'ai structuré un Design System de 30+ composants React sous Storybook. Chez Questel, j'ai développé un module from scratch avec son propre Design System. Puis chez La Ruche qui dit Oui !, en tant que Lead Frontend, j'ai modernisé une codebase legacy de 10+ ans en refonçant 12 pages du parcours d'achat.",
-      "Depuis 2025, j'intègre l'IA dans mon quotidien. Claude Code principalement, sur des projets réels dont ce portfolio. Ce que j'en retiens : on délègue différemment, on itère plus vite, et on passe plus de temps sur ce qui compte vraiment.",
+      "Depuis 2025, j'intègre l'IA dans mon quotidien. Claude Code principalement, sur des projets réels dont ce portfolio. Ce que j'en retiens : on délègue différemment, on itère plus vite, et on passe plus de temps sur ce qui a de la valeur.",
       "En dehors du code, je joue aux jeux de société, je lis beaucoup, je pratique le tennis de table et j'explore la cuisine. Des activités assez différentes les unes des autres, mais qui ont toutes quelque chose en commun : difficile de décrocher une fois qu'on est dedans.",
     ],
     aboutRules: [
       {
         number: '1',
         title: 'Rigueur',
-        text: "Je prends le temps de bien faire les choses dès le départ. Un code propre, bien nommé, accessible. Ce n'est pas du perfectionnisme, c'est juste plus facile à maintenir pour tout le monde.",
+        text: "Je prends le temps de bien faire les choses dès le départ. Un code propre, bien nommé, accessible. Quelqu'un devra reprendre ce code plus tard, autant que ce soit agréable.",
       },
       {
         number: '2',
@@ -74,17 +74,17 @@ const profileContent = {
     heroDescription:
       "Senior Frontend Developer React/TypeScript, I've worked on high-impact projects: Peugeot/Citroën/DS car configurator in 30+ countries, e-commerce overhaul, 30+ component Design Systems. Attentive to code quality as much as to what the user experiences, I like teams where people can count on each other. Since 2025, I've been working with AI on a daily basis.",
     aboutParagraphs: [
-      'I started with computer science studies at the University of Orléans, then specialized training at Institut IEF2I in Vincennes. Pretty quickly, I realised Frontend was what drew me in: what the user sees and feels, not just what runs behind the scenes.',
+      'I started with computer science studies at the University of Orléans, then specialized training at Institut IEF2I in Vincennes. Pretty quickly, I realised Frontend was what drew me in: the visible result, not just the technique behind it.',
       'TimmXware gave me the chance to stack missions at agencies and SMEs. Symfony, JavaScript, Git on a daily basis. It was also through that firm that I joined Groupe PSA, where I spent two years in a 15-person Agile team deploying a car configurator across 30+ countries for Peugeot, Citroën and DS.',
       'The years that followed brought me to more focused projects. At Yoomap, I structured a 30+ component React Design System in Storybook. At Questel, I built a module from scratch with its own standalone Design System. Then at La Ruche qui dit Oui!, as Lead Frontend, I modernized a 10+ year legacy codebase by overhauling 12 pages of the purchase journey.',
-      "Since 2025, I've been integrating AI into my daily work. Claude Code mainly, on real projects including this portfolio. What I take from it: you delegate differently, you iterate faster, and you spend more time on what actually matters.",
+      "Since 2025, I've been integrating AI into my daily work. Claude Code mainly, on real projects including this portfolio. What I take from it: you delegate differently, you iterate faster, and you spend more time on what has value.",
       'Outside of code, I play board games, read a lot, practice table tennis and explore cooking. Pretty different from one another, but they all have something in common: hard to stop once you are into it.',
     ],
     aboutRules: [
       {
         number: '1',
         title: 'Rigor',
-        text: 'I take the time to do things right from the start. Clean code, clear naming, accessibility built in. Not perfectionism, just easier to maintain for everyone.',
+        text: 'I take the time to do things right from the start. Clean code, clear naming, accessibility built in. Someone will pick this up later, might as well make it pleasant.',
       },
       {
         number: '2',
