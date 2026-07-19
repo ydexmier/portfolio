@@ -37,7 +37,7 @@ export const experience: ExperienceItem[] = [
   },
   {
     period: '2016 → 2019',
-    title: 'Développeur Frontend — Mission PSA',
+    title: 'Développeur Frontend, Mission PSA',
     company: 'TimmXware',
     duration: '3 ans',
     slug: 'psa-configurateur',

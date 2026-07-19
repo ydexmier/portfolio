@@ -18,14 +18,14 @@ export const ui = {
     'lang.toggle': 'EN',
     'lang.toggle.href': '/en',
 
-    'hero.tagline': 'Développeur web senior — 10 ans de partie, toujours la bonne carte',
+    'hero.tagline': 'Développeur web senior, 10 ans de partie, toujours la bonne carte',
     'hero.cta.projects': 'Découvrir la notice ↓',
     'hero.cta.contact': 'On fait une partie ?',
 
     'plateau.label': 'Le plateau',
     'plateau.title': '10 ans de partie, case par case',
     'plateau.subtitle':
-      'Chaque case est une vraie expérience — cliquez sur une carte pour le détail.',
+      'Chaque case est une vraie expérience. Cliquez sur une carte pour le détail.',
     'plateau.start': 'Case départ',
     'plateau.empty': 'Votre projet ici ?',
 
@@ -50,7 +50,7 @@ export const ui = {
     'contact.btn.cv': 'Télécharger mon CV',
     'contact.chip.cdi': 'Disponible en CDI',
     'contact.chip.freelance': 'Missions freelance',
-    'contact.note': 'Parlez-moi de votre produit — je ramène les cartes.',
+    'contact.note': 'Parlez-moi de votre produit, je ramène les cartes.',
     'contact.form.name': 'Votre nom',
     'contact.form.email': 'Votre email',
     'contact.form.message': 'Votre message',
@@ -61,7 +61,7 @@ export const ui = {
 
     'about.label': 'À propos',
     'about.title': 'Derrière les cartes',
-    'about.subtitle': 'La bio complète — qui je suis, comment je joue.',
+    'about.subtitle': 'La bio complète : qui je suis, comment je joue.',
     'about.formation.label': 'Formation',
     'about.cv': 'Télécharger le CV',
     'about.softskills.label': 'Soft skills',
@@ -74,15 +74,15 @@ export const ui = {
 
     'footer.copy': 'fait en coopération avec IA.',
 
-    'meta.home.title': 'Yoann Dexmier — Développeur Frontend Senior React / TypeScript',
+    'meta.home.title': 'Yoann Dexmier | Développeur Frontend Senior React / TypeScript',
     'meta.home.description':
       "Yoann Dexmier, développeur Frontend Senior React / TypeScript, 10 ans d'expérience en Île-de-France. Disponible en CDI ou freelance, télétravail ou présentiel.",
-    'meta.about.title': 'À propos — Yoann Dexmier, Développeur Frontend Senior',
+    'meta.about.title': 'À propos | Yoann Dexmier, Développeur Frontend Senior',
     'meta.about.description':
-      'Parcours, valeurs et formations de Yoann Dexmier — développeur React / TypeScript senior basé à Noisy-le-Grand, disponible en Île-de-France et en télétravail.',
-    'meta.contact.title': 'Contact — Yoann Dexmier, Développeur React / TypeScript',
+      'Parcours, valeurs et formations de Yoann Dexmier, développeur React / TypeScript senior basé à Noisy-le-Grand, disponible en Île-de-France et en télétravail.',
+    'meta.contact.title': 'Contact | Yoann Dexmier, Développeur React / TypeScript',
     'meta.contact.description':
-      'Contacter Yoann Dexmier — développeur Frontend Senior React / TypeScript disponible en CDI ou freelance, en Île-de-France ou en télétravail.',
+      'Contacter Yoann Dexmier, développeur Frontend Senior React / TypeScript disponible en CDI ou freelance, en Île-de-France ou en télétravail.',
   },
   en: {
     'nav.accueil': 'Home',
@@ -96,13 +96,13 @@ export const ui = {
     'lang.toggle': 'FR',
     'lang.toggle.href': '/',
 
-    'hero.tagline': 'Senior web developer — 10 years in the game, always the right card',
+    'hero.tagline': 'Senior web developer, 10 years in the game, always the right card',
     'hero.cta.projects': 'See the rulebook ↓',
     'hero.cta.contact': 'Want to play a game?',
 
     'plateau.label': 'The board',
     'plateau.title': '10 years in the game, square by square',
-    'plateau.subtitle': 'Each square is a real experience — click a card for the details.',
+    'plateau.subtitle': 'Each square is a real experience. Click a card for the details.',
     'plateau.start': 'Starting square',
     'plateau.empty': 'Your project here?',
 
@@ -126,7 +126,7 @@ export const ui = {
     'contact.btn.cv': 'Download my resume',
     'contact.chip.cdi': 'Available for full-time',
     'contact.chip.freelance': 'Freelance missions',
-    'contact.note': 'Tell me about your product — I bring the cards.',
+    'contact.note': 'Tell me about your product, I bring the cards.',
     'contact.form.name': 'Your name',
     'contact.form.email': 'Your email',
     'contact.form.message': 'Your message',
@@ -137,7 +137,7 @@ export const ui = {
 
     'about.label': 'About',
     'about.title': 'Behind the cards',
-    'about.subtitle': 'The full bio — who I am, how I play.',
+    'about.subtitle': 'The full bio: who I am, how I play.',
     'about.formation.label': 'Education',
     'about.cv': 'Download CV',
     'about.softskills.label': 'Soft skills',
@@ -150,14 +150,14 @@ export const ui = {
 
     'footer.copy': 'handcrafted, no cheating.',
 
-    'meta.home.title': 'Yoann Dexmier — Senior Frontend Developer React / TypeScript',
+    'meta.home.title': 'Yoann Dexmier | Senior Frontend Developer React / TypeScript',
     'meta.home.description':
       'Yoann Dexmier, Senior Frontend Developer React / TypeScript with 10 years of experience. Available for full-time or freelance, remote or on-site near Paris, France.',
-    'meta.about.title': 'About — Yoann Dexmier, Senior Frontend Developer',
+    'meta.about.title': 'About | Yoann Dexmier, Senior Frontend Developer',
     'meta.about.description':
-      'Background, values and education of Yoann Dexmier — Senior React / TypeScript developer based near Paris, available remote or on-site.',
-    'meta.contact.title': 'Contact — Yoann Dexmier, React / TypeScript Developer',
+      'Background, values and education of Yoann Dexmier, Senior React / TypeScript developer based near Paris, available remote or on-site.',
+    'meta.contact.title': 'Contact | Yoann Dexmier, React / TypeScript Developer',
     'meta.contact.description':
-      'Contact Yoann Dexmier — Senior Frontend Developer React / TypeScript available for full-time or freelance, remote or on-site near Paris.',
+      'Contact Yoann Dexmier, Senior Frontend Developer React / TypeScript available for full-time or freelance, remote or on-site near Paris.',
   },
 } as const
