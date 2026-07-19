@@ -61,7 +61,7 @@ const plateauFr: PlateauCase[] = [
     company: 'La Ruche qui dit Oui !',
     period: '2023 — 2025',
     description:
-      "Lead Frontend — refonte de 12 pages du parcours d'achat sur une codebase legacy de 10+ ans.",
+      "Lead Frontend, refonte de 12 pages du parcours d'achat sur une codebase legacy de 10+ ans.",
     variant: 'default',
   },
   {
@@ -134,7 +134,7 @@ const plateauEn: PlateauCase[] = [
     company: 'La Ruche qui dit Oui !',
     period: '2023 — 2025',
     description:
-      'Lead Frontend — overhaul of 12 pages of the purchase journey on a 10+ year legacy codebase.',
+      'Lead Frontend, overhaul of 12 pages of the purchase journey on a 10+ year legacy codebase.',
     variant: 'default',
   },
   {

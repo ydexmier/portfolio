@@ -16,13 +16,13 @@ export const projects: Project[] = [
     slug: 'psa-configurateur',
     emoji: '🚗',
     title: 'Configurateur automobile international',
-    company: 'PSA — Peugeot / Citroën / DS',
+    company: 'PSA, Peugeot / Citroën / DS',
     period: '2016 — 2019',
     context:
       "Mission chez PSA au sein d'une équipe Agile de ~15 personnes (PO, Scrum Masters, Dev Front/Back, UX/UI, DevOps), via TimmXware.",
     challenge:
       'Développer un configurateur de voiture en ligne déployé dans 30+ pays pour Peugeot, Citroën et DS, en plusieurs langues.',
-    role: 'Développeur Frontend — Lead sur la résolution de bugs critiques en production.',
+    role: 'Développeur Frontend, lead sur la résolution de bugs critiques en production.',
     stack: ['JavaScript ES6', 'ReactJS', 'CSS3', 'Stylus', 'Webpack', 'Jenkins', 'Git'],
     impact: 'Outil utilisé à grande échelle par 3 marques automobiles majeures dans 30+ pays.',
   },
@@ -35,7 +35,7 @@ export const projects: Project[] = [
     context: "Lead développeur Frontend au sein d'une équipe de 3 (2 orientés Backend).",
     challenge:
       "Moderniser une base de code legacy de 10+ ans sans régression, sur l'intégralité du parcours d'achat.",
-    role: 'Lead Frontend — pilotage complet de la refonte.',
+    role: 'Lead Frontend, pilotage complet de la refonte.',
     stack: ['ReactJS', 'PHP / Symfony', 'Google Analytics', 'Git'],
     impact:
       "Refonte de 12 pages (catalogue, fiches produits, tunnel d'achat), suivi analytics des évolutions.",
@@ -59,7 +59,7 @@ export const projects: Project[] = [
     title: 'Design System SaaS',
     company: 'Yoomap',
     period: '2019 — 2021',
-    context: 'Équipe de 5 développeurs Frontend — refonte graphique du SaaS.',
+    context: 'Équipe de 5 développeurs Frontend, refonte graphique du SaaS.',
     challenge: "Structurer un Design System cohérent à l'échelle de l'équipe.",
     role: 'Développeur Fullstack.',
     stack: ['ReactJS', 'Storybook', 'API REST', 'Agile / Scrum', 'Git'],
@@ -74,10 +74,10 @@ export const projects: Project[] = [
     context: 'Autodidacte, exploration du développement assisté par IA.',
     challenge:
       "Intégrer l'IA dans un workflow de développement frontend complet, de la conception au déploiement.",
-    role: 'Développeur — projet personnel.',
+    role: 'Développeur, projet personnel.',
     stack: ['ReactJS', 'Next.js', 'MongoDB', 'Vercel', 'Claude Code'],
     impact:
-      "Démonstration concrète de l'intégration de l'IA dans le workflow dev — ce portfolio en est le résultat.",
+      "Démonstration concrète de l'intégration de l'IA dans le workflow dev. Ce portfolio en est le résultat.",
   },
 ]
 

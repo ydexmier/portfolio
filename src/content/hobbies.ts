@@ -15,14 +15,14 @@ const hobbiesFr: Hobby[] = [
     emoji: '♟',
     title: 'Jeux de société',
     anecdote:
-      'Stratégie, coopération, négociation — tout ce qui fait une bonne partie… et un bon sprint.',
+      'Stratégie, coopération, négociation : tout ce qui fait une bonne partie… et un bon sprint.',
   },
   {
     rank: '8',
     suit: '♦',
     emoji: '📖',
     title: 'Lecture',
-    anecdote: "Le meilleur moyen d'explorer d'autres univers — et de nourrir la veille.",
+    anecdote: "Le meilleur moyen d'explorer d'autres univers et de nourrir la veille.",
   },
   {
     rank: '9',
@@ -43,7 +43,7 @@ const hobbiesFr: Hobby[] = [
     suit: '♣',
     emoji: '🍜',
     title: 'Food',
-    anecdote: 'Découvrir, goûter, refaire à la maison — itérer, toujours.',
+    anecdote: 'Découvrir, goûter, refaire à la maison. Itérer, toujours.',
   },
 ]
 
@@ -54,14 +54,14 @@ const hobbiesEn: Hobby[] = [
     emoji: '♟',
     title: 'Board games',
     anecdote:
-      'Strategy, cooperation, negotiation — everything that makes a good game… and a good sprint.',
+      'Strategy, cooperation, negotiation: everything that makes a good game… and a good sprint.',
   },
   {
     rank: '8',
     suit: '♦',
     emoji: '📖',
     title: 'Reading',
-    anecdote: 'The best way to explore other universes — and fuel your curiosity.',
+    anecdote: 'The best way to explore other universes and fuel your curiosity.',
   },
   {
     rank: '9',
@@ -82,7 +82,7 @@ const hobbiesEn: Hobby[] = [
     suit: '♣',
     emoji: '🍜',
     title: 'Food',
-    anecdote: 'Discover, taste, recreate at home — always iterating.',
+    anecdote: 'Discover, taste, recreate at home. Always iterating.',
   },
 ]
 
