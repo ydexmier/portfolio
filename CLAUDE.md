@@ -8,7 +8,7 @@
 
 **Nom :** Yoann Dexmier  
 **Titre :** Développeur JavaScript Sénior  
-**Sous-titre :** Développeur Frontend Senior  
+**Sous-titre :** Développeur Fullstack JavaScript Senior  
 **Localisation :** Noisy-le-Grand, France  
 **Email :** yoanndexmier.pro@gmail.com  
 **Téléphone :** 0670667215  
@@ -40,9 +40,10 @@ Lecture • Jeux de société • Tennis de Table • Jeux vidéo • Food
 
 ### Framework
 
-- **Astro 5** — zéro JS par défaut, pages statiques pré-rendues, islands React là où JS est nécessaire
+- **Astro 7** — zéro JS par défaut, pages statiques pré-rendues, islands React là où JS est nécessaire
 - **React 19** + **@astrojs/react** — uniquement pour `ContactForm.tsx` (formulaire interactif)
 - **TypeScript strict**
+- **Node >= 22.23.4** — requis par Astro 7, version épinglée dans `.nvmrc`
 
 ### Style
 
