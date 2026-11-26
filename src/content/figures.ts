@@ -2,7 +2,7 @@ type Lang = 'fr' | 'en'
 
 export type Figure = {
   rank: string
-  suit: '♠' | '♦'
+  suit: '♠' | '♥' | '♦'
   company: string
   years: string
   mission: string
@@ -39,6 +39,20 @@ const figuresFr: Figure[] = [
       'Corrections de bugs et développement de nouvelles fonctionnalités',
     ],
   },
+  {
+    rank: 'V',
+    suit: '♥',
+    company: 'La Ruche qui dit Oui !',
+    years: '2023 — 2025',
+    mission: 'Refonte e-commerce',
+    description:
+      "Lead Frontend d'une équipe de 3 sur la refonte du parcours d'achat complet, d'une codebase legacy de 10+ ans vers du React moderne, sans régression et sans interruption de service.",
+    achievements: [
+      "12 pages refondues : catalogue, fiches produits, tunnel d'achat",
+      'React devant, PHP / Symfony derrière, migration progressive',
+      'Suivi analytics des conversions pour valider chaque évolution',
+    ],
+  },
 ]
 
 const figuresEn: Figure[] = [
@@ -68,6 +82,20 @@ const figuresEn: Figure[] = [
       '30+ ReactJS components documented in Storybook',
       'EPICs & User Stories, managing delivery cycles',
       'Bug fixes and new feature development',
+    ],
+  },
+  {
+    rank: 'V',
+    suit: '♥',
+    company: 'La Ruche qui dit Oui !',
+    years: '2023 — 2025',
+    mission: 'E-commerce overhaul',
+    description:
+      'Lead Frontend of a team of 3 on the overhaul of the full purchase journey, from a 10+ year legacy codebase to modern React, with no regressions and no downtime.',
+    achievements: [
+      '12 pages rebuilt: catalogue, product pages, checkout funnel',
+      'React on the front, PHP / Symfony behind, progressive migration',
+      'Analytics tracking of conversions to validate every change',
     ],
   },
 ]
