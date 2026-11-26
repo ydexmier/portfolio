@@ -30,7 +30,7 @@ export const ui = {
     'plateau.empty': 'Votre projet ici ?',
 
     'figures.label': 'Les figures',
-    'figures.title': 'Les deux coups décisifs',
+    'figures.title': 'Les coups décisifs',
 
     'jetons.label': 'Mes jetons',
     'jetons.title': "Ce que j'apporte à la table",
@@ -74,15 +74,15 @@ export const ui = {
 
     'footer.copy': 'fait en coopération avec IA.',
 
-    'meta.home.title': 'Yoann Dexmier | Développeur Frontend Senior React / TypeScript',
+    'meta.home.title': 'Yoann Dexmier | Développeur Fullstack JavaScript Senior React / Node',
     'meta.home.description':
-      "Yoann Dexmier, développeur Frontend Senior React / TypeScript, 10 ans d'expérience en Île-de-France. Disponible en CDI ou freelance, télétravail ou présentiel.",
-    'meta.about.title': 'À propos | Yoann Dexmier, Développeur Frontend Senior',
+      "Yoann Dexmier, développeur Fullstack JavaScript Senior React / TypeScript / Node, 10 ans d'expérience en Île-de-France. Du composant à l'API. Disponible en CDI ou freelance, télétravail ou présentiel.",
+    'meta.about.title': 'À propos | Yoann Dexmier, Développeur Fullstack JavaScript Senior',
     'meta.about.description':
-      'Parcours, valeurs et formations de Yoann Dexmier, développeur React / TypeScript senior basé à Noisy-le-Grand, disponible en Île-de-France et en télétravail.',
-    'meta.contact.title': 'Contact | Yoann Dexmier, Développeur React / TypeScript',
+      'Parcours, valeurs et formations de Yoann Dexmier, développeur Fullstack React / TypeScript / Node senior basé à Noisy-le-Grand, disponible en Île-de-France et en télétravail.',
+    'meta.contact.title': 'Contact | Yoann Dexmier, Développeur Fullstack React / Node',
     'meta.contact.description':
-      'Contacter Yoann Dexmier, développeur Frontend Senior React / TypeScript disponible en CDI ou freelance, en Île-de-France ou en télétravail.',
+      'Contacter Yoann Dexmier, développeur Fullstack JavaScript Senior React / Node disponible en CDI ou freelance, en Île-de-France ou en télétravail.',
   },
   en: {
     'nav.accueil': 'Home',
@@ -107,7 +107,7 @@ export const ui = {
     'plateau.empty': 'Your project here?',
 
     'figures.label': 'The figures',
-    'figures.title': 'The two decisive moves',
+    'figures.title': 'The decisive moves',
 
     'jetons.label': 'My chips',
     'jetons.title': 'What I bring to the table',
@@ -150,14 +150,14 @@ export const ui = {
 
     'footer.copy': 'handcrafted, no cheating.',
 
-    'meta.home.title': 'Yoann Dexmier | Senior Frontend Developer React / TypeScript',
+    'meta.home.title': 'Yoann Dexmier | Senior Fullstack JavaScript Developer React / Node',
     'meta.home.description':
-      'Yoann Dexmier, Senior Frontend Developer React / TypeScript with 10 years of experience. Available for full-time or freelance, remote or on-site near Paris, France.',
-    'meta.about.title': 'About | Yoann Dexmier, Senior Frontend Developer',
+      'Yoann Dexmier, Senior Fullstack JavaScript Developer React / TypeScript / Node with 10 years of experience. From the component to the API. Available for full-time or freelance, remote or on-site near Paris, France.',
+    'meta.about.title': 'About | Yoann Dexmier, Senior Fullstack JavaScript Developer',
     'meta.about.description':
-      'Background, values and education of Yoann Dexmier, Senior React / TypeScript developer based near Paris, available remote or on-site.',
-    'meta.contact.title': 'Contact | Yoann Dexmier, React / TypeScript Developer',
+      'Background, values and education of Yoann Dexmier, Senior Fullstack React / TypeScript / Node developer based near Paris, available remote or on-site.',
+    'meta.contact.title': 'Contact | Yoann Dexmier, Fullstack React / Node Developer',
     'meta.contact.description':
-      'Contact Yoann Dexmier, Senior Frontend Developer React / TypeScript available for full-time or freelance, remote or on-site near Paris.',
+      'Contact Yoann Dexmier, Senior Fullstack JavaScript Developer React / Node available for full-time or freelance, remote or on-site near Paris.',
   },
 } as const

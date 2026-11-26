@@ -26,7 +26,7 @@ const plateauFr: PlateauCase[] = [
     company: 'TimmXware',
     period: '2016 — 2019',
     description:
-      "Missions variées auprès d'agences web et de PME : Symfony, JavaScript, CSS et Git au quotidien.",
+      "Missions variées auprès d'agences web et de PME : développement fullstack Symfony, JavaScript, CSS et Git au quotidien.",
     variant: 'default',
   },
   {
@@ -44,7 +44,7 @@ const plateauFr: PlateauCase[] = [
     company: 'Yoomap',
     period: '2019 — 2021',
     description:
-      'Refonte graphique du SaaS et Design System de 30+ composants React dans Storybook.',
+      'Développeur fullstack : refonte graphique du SaaS, Design System de 30+ composants React dans Storybook et les API REST qui alimentaient le produit.',
     variant: 'featured',
   },
   {
@@ -52,7 +52,8 @@ const plateauFr: PlateauCase[] = [
     suit: '♣',
     company: 'Questel',
     period: '2021 — 2023',
-    description: 'Module from scratch + Design System standalone (15+ composants Storybook).',
+    description:
+      'Module from scratch avec ses endpoints REST + Design System standalone (15+ composants Storybook).',
     variant: 'default',
   },
   {
@@ -61,7 +62,7 @@ const plateauFr: PlateauCase[] = [
     company: 'La Ruche qui dit Oui !',
     period: '2023 — 2025',
     description:
-      "Lead Frontend, refonte de 12 pages du parcours d'achat sur une codebase legacy de 10+ ans.",
+      "Lead Frontend, refonte de 12 pages du parcours d'achat sur une codebase legacy de 10+ ans : React devant, Symfony derrière.",
     variant: 'default',
   },
   {
@@ -69,7 +70,8 @@ const plateauFr: PlateauCase[] = [
     suit: '♠',
     company: 'Projets perso + IA',
     period: "2025 — aujourd'hui",
-    description: 'Développement assisté par IA, exploration de Claude Code et des workflows IA.',
+    description:
+      'Projets fullstack Next.js / MongoDB déployés sur Vercel, développement assisté par IA avec Claude Code.',
     variant: 'default',
     hasPion: true,
   },
@@ -99,7 +101,7 @@ const plateauEn: PlateauCase[] = [
     company: 'TimmXware',
     period: '2016 — 2019',
     description:
-      'Various missions for web agencies and SMEs: Symfony, JavaScript, CSS and Git on a daily basis.',
+      'Various missions for web agencies and SMEs: fullstack development with Symfony, JavaScript, CSS and Git on a daily basis.',
     variant: 'default',
   },
   {
@@ -117,7 +119,7 @@ const plateauEn: PlateauCase[] = [
     company: 'Yoomap',
     period: '2019 — 2021',
     description:
-      'Complete visual overhaul of the SaaS and a 30+ component React Design System in Storybook.',
+      'Fullstack developer: visual overhaul of the SaaS, a 30+ component React Design System in Storybook and the REST APIs feeding the product.',
     variant: 'featured',
   },
   {
@@ -125,7 +127,8 @@ const plateauEn: PlateauCase[] = [
     suit: '♣',
     company: 'Questel',
     period: '2021 — 2023',
-    description: 'Module built from scratch + standalone Design System (15+ Storybook components).',
+    description:
+      'Module built from scratch with its REST endpoints + standalone Design System (15+ Storybook components).',
     variant: 'default',
   },
   {
@@ -134,7 +137,7 @@ const plateauEn: PlateauCase[] = [
     company: 'La Ruche qui dit Oui !',
     period: '2023 — 2025',
     description:
-      'Lead Frontend, overhaul of 12 pages of the purchase journey on a 10+ year legacy codebase.',
+      'Lead Frontend, overhaul of 12 pages of the purchase journey on a 10+ year legacy codebase: React on the front, Symfony behind.',
     variant: 'default',
   },
   {
@@ -142,7 +145,8 @@ const plateauEn: PlateauCase[] = [
     suit: '♠',
     company: 'Personal + AI projects',
     period: '2025 — today',
-    description: 'AI-assisted development, exploring Claude Code and AI workflows.',
+    description:
+      'Fullstack Next.js / MongoDB projects deployed on Vercel, AI-assisted development with Claude Code.',
     variant: 'default',
     hasPion: true,
   },
